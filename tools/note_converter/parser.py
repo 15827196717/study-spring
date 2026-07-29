@@ -40,7 +40,7 @@ def _decode(value: str) -> str:
     return value
 
 
-def parse_snapshot(snapshot: str) -> Note:
+def parse_snapshot(snapshot: str, *, require_complete: bool = False) -> Note:
     """Parse the note iframe while retaining its source TOC independently."""
     try:
         frame = snapshot.split("- iframe:\n", 1)[1].split("\n- paragraph:", 1)[0]
@@ -73,13 +73,12 @@ def parse_snapshot(snapshot: str) -> Note:
         and re.match(r"^\d+[.、銆乚]", _decode(match.group(1)))
     )
     body = lines[starts[1] :]
-    source_toc_sections = {
-        _decode(match.group(1)).strip()
+    source_toc_slugs = [
+        section_slugs[text]
         for line in lines[starts[0] : starts[1]]
         if (match := re.match(r"^  - generic:\s?(.*)$", line))
-        and _decode(match.group(1)).strip() in section_slugs
-    }
-
+        and (text := _decode(match.group(1)).strip()) in section_slugs
+    ]
     sections: list[Section] = []
     current_title: str | None = None
     current_blocks: list[Block] = []
@@ -148,11 +147,17 @@ def parse_snapshot(snapshot: str) -> Note:
 
     flush_code()
     flush_section()
-    is_full_snapshot = len(source_toc_sections) > 2 or len(questions) > 2
-    if is_full_snapshot and len(sections) != len(SECTION_FILES):
-        raise ValueError(
-            f"expected exactly ten real sections, got {len(sections)}"
-        )
+    if require_complete:
+        expected_slugs = [slug for _, slug in SECTION_FILES]
+        actual_slugs = [section.slug for section in sections]
+        if source_toc_slugs != expected_slugs:
+            raise ValueError("expected detailed sections in SECTION_FILES order")
+        if len(actual_slugs) != len(expected_slugs):
+            raise ValueError(
+                f"expected exactly ten real sections, got {len(actual_slugs)}"
+            )
+        if actual_slugs != expected_slugs:
+            raise ValueError("expected detailed sections in SECTION_FILES order")
     return Note(title, questions, tuple(sections))
 
 

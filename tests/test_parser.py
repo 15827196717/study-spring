@@ -85,14 +85,45 @@ class ParserTests(unittest.TestCase):
     def test_rejects_duplicate_detailed_sections_in_a_full_snapshot(self):
         titles = [title for title, _ in SECTION_FILES]
 
-        with self.assertRaisesRegex(ValueError, "exactly ten real sections"):
-            parse_snapshot(full_like_snapshot(titles, [*titles, titles[-1]]))
+        with self.assertRaises(ValueError):
+            parse_snapshot(
+                full_like_snapshot(titles, [*titles, titles[-1]]),
+                require_complete=True,
+            )
 
     def test_rejects_an_incomplete_full_snapshot_with_a_malformed_toc(self):
         titles = [title for title, _ in SECTION_FILES[:-1]]
 
-        with self.assertRaisesRegex(ValueError, "exactly ten real sections"):
-            parse_snapshot(full_like_snapshot(titles, titles))
+        with self.assertRaises(ValueError):
+            parse_snapshot(
+                full_like_snapshot(titles, titles), require_complete=True
+            )
+
+    def test_rejects_sparse_toc_with_nine_detailed_sections_when_complete(self):
+        titles = [title for title, _ in SECTION_FILES]
+
+        with self.assertRaises(ValueError):
+            parse_snapshot(
+                full_like_snapshot(titles[:2], titles[:-1]), require_complete=True
+            )
+
+    def test_rejects_sparse_toc_with_eleven_detailed_sections_when_complete(self):
+        titles = [title for title, _ in SECTION_FILES]
+
+        with self.assertRaises(ValueError):
+            parse_snapshot(
+                full_like_snapshot(titles[:2], [*titles, titles[-1]]),
+                require_complete=True,
+            )
+
+    def test_rejects_out_of_order_detailed_sections_when_complete(self):
+        titles = [title for title, _ in SECTION_FILES]
+
+        with self.assertRaisesRegex(ValueError, "expected detailed sections"):
+            parse_snapshot(
+                full_like_snapshot(titles, [titles[1], titles[0], *titles[2:]]),
+                require_complete=True,
+            )
 
 if __name__ == "__main__":
     unittest.main()
