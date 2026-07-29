@@ -63,6 +63,26 @@ class ValidationTests(unittest.TestCase):
             )
             self.assertIn("broken link", "\n".join(validate(root)))
 
+    def test_reports_markdown_link_that_escapes_repository_root(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_valid_fixture(root)
+            (root.parent / "outside.txt").write_text("outside", encoding="utf-8")
+            (root / "README.md").write_text(
+                "[outside](../outside.txt)", encoding="utf-8"
+            )
+            self.assertIn("outside repository", "\n".join(validate(root)))
+
+    def test_reports_absolute_markdown_link(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_valid_fixture(root)
+            target = (root / "assets" / "images" / "note-001.png").as_posix()
+            (root / "README.md").write_text(
+                f"[absolute]({target})", encoding="utf-8"
+            )
+            self.assertIn("absolute link", "\n".join(validate(root)))
+
     def test_reports_remote_youdao_runtime_reference(self):
         with TemporaryDirectory() as temp:
             root = Path(temp)
@@ -72,6 +92,29 @@ class ValidationTests(unittest.TestCase):
                 encoding="utf-8",
             )
             self.assertIn("forbidden URL", "\n".join(validate(root)))
+
+    def test_reports_remote_references_in_nested_site_assets(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_valid_fixture(root)
+            nested = root / "site" / "assets"
+            nested.mkdir()
+            (root / "site" / "index.html").write_text(
+                '<img src = "https://example.com/quoted.png">',
+                encoding="utf-8",
+            )
+            (nested / "reader.html").write_text(
+                "<script src=https://example.com/app.js></script>",
+                encoding="utf-8",
+            )
+            (nested / "theme.css").write_text(
+                ".hero { background: url(https://example.com/bg.png); }",
+                encoding="utf-8",
+            )
+            errors = "\n".join(validate(root))
+            self.assertIn("index.html", errors)
+            self.assertIn("reader.html", errors)
+            self.assertIn("theme.css", errors)
 
     def test_reports_question_manifest_mismatch(self):
         with TemporaryDirectory() as temp:

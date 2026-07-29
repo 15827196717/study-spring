@@ -8,13 +8,14 @@ from urllib.parse import unquote
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 QUESTION_HEADING = re.compile(r"^## (.+)$", re.MULTILINE)
 FORBIDDEN_SITE_REFERENCE = re.compile(
-    r"(?:src|href)=\s*[\"']https?://|url\(\s*[\"']?https?://",
+    r"(?:src|href)\s*=\s*[\"']?https?://|url\(\s*[\"']?https?://",
     re.IGNORECASE,
 )
 
 
 def validate(repo_root: Path) -> list[str]:
     """Return all internal-consistency errors in generated notes artifacts."""
+    repo_root = repo_root.resolve()
     errors: list[str] = []
     manifest = json.loads(
         (repo_root / "tools" / "content_manifest.json").read_text("utf-8")
@@ -59,15 +60,29 @@ def validate(repo_root: Path) -> list[str]:
             target = raw_target.strip("<>").split("#", 1)[0]
             if not target or re.match(r"^(?:https?|mailto):", target):
                 continue
-            resolved = markdown_path.parent / unquote(target)
+            target_path = Path(unquote(target))
+            if target_path.is_absolute():
+                errors.append(f"absolute link in {markdown_path.name}: {raw_target}")
+                continue
+            resolved = (markdown_path.parent / target_path).resolve()
+            try:
+                resolved.relative_to(repo_root)
+            except ValueError:
+                errors.append(
+                    f"link outside repository in {markdown_path.name}: {raw_target}"
+                )
+                continue
             if not resolved.exists():
                 errors.append(f"broken link in {markdown_path.name}: {raw_target}")
 
     site_dir = repo_root / "site"
-    for site_path in site_dir.glob("*"):
+    for site_path in site_dir.rglob("*"):
         if not site_path.is_file():
             continue
-        text = site_path.read_text("utf-8")
+        try:
+            text = site_path.read_text("utf-8")
+        except UnicodeDecodeError:
+            continue
         if "share.note.youdao.com" in text or FORBIDDEN_SITE_REFERENCE.search(text):
             errors.append(f"forbidden URL in {site_path.name}")
 
