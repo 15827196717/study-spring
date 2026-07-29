@@ -67,6 +67,16 @@ article {
 }
 img { display: block; max-width: 100%; height: auto; margin: 1.5rem auto; }
 .question :where(p, li) { overflow-wrap: anywhere; }
+.table-scroll {
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+}
+.table-scroll table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+}
 pre {
   max-width: 100%;
   overflow-x: auto;

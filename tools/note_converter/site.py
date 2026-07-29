@@ -89,6 +89,8 @@ def render_site(note: Note, image_paths: dict[str, str]) -> str:
                 if block.table.rows:
                     header, *body = block.table.rows
                     article.append(
+                        '<div class="table-scroll" role="region" '
+                        'aria-label="Scrollable data table" tabindex="0">'
                         "<table><thead><tr>"
                         + "".join(
                             f"<th>{_table_cell(cell.lines)}</th>"
@@ -106,7 +108,7 @@ def render_site(note: Note, image_paths: dict[str, str]) -> str:
                         + "</tr>"
                         for row in body
                     )
-                    article.append("</tbody></table>")
+                    article.append("</tbody></table></div>")
             elif block.kind == "image":
                 image_sequence += 1
                 path = escape(image_paths[block.text], quote=True)

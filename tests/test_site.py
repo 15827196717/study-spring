@@ -162,6 +162,61 @@ class SiteTests(unittest.TestCase):
             html,
         )
 
+    def test_wraps_wide_table_in_keyboard_accessible_scroll_region(self):
+        headers = ("Propagation", "External transaction", "Internal action", "Usage")
+        values = (
+            "REQUIRES_NEW_WITH_A_LONG_UNBROKEN_NAME",
+            "SuspendTheExistingTransactionBeforeContinuing",
+            "CreateAnIndependentTransactionForTheNestedCall",
+            "TransactionalPropagationRequiresNew",
+        )
+        note = Note(
+            "Spring Notes",
+            (),
+            (
+                Section(
+                    "01-one",
+                    "One",
+                    (
+                        Block(
+                            "table",
+                            table=Table(
+                                (
+                                    TableRow(
+                                        tuple(TableCell((value,)) for value in headers)
+                                    ),
+                                    TableRow(
+                                        tuple(TableCell((value,)) for value in values)
+                                    ),
+                                )
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        )
+
+        html = render_site(note, {})
+        styles = (SITE_DIR / "styles.css").read_text(encoding="utf-8")
+
+        self.assertIn(
+            '<div class="table-scroll" role="region" '
+            'aria-label="Scrollable data table" tabindex="0"><table>',
+            html,
+        )
+        self.assertIn("</table></div>", html)
+        self.assertEqual(4, html.count("<th>"))
+        self.assertEqual(4, html.count("<td>"))
+        self.assertRegex(
+            styles,
+            r"\.table-scroll\s*\{[^}]*max-width:\s*100%;"
+            r"[^}]*overflow-x:\s*auto",
+        )
+        self.assertRegex(
+            styles,
+            r"\.table-scroll table\s*\{[^}]*min-width:\s*",
+        )
+
     def test_active_toc_contract_covers_hash_scroll_and_page_bottom(self):
         script = (SITE_DIR / "app.js").read_text(encoding="utf-8")
 
