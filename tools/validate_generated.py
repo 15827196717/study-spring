@@ -8,8 +8,12 @@ from urllib.parse import unquote
 MARKDOWN_LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 QUESTION_HEADING = re.compile(r"^## (.+)$", re.MULTILINE)
 FORBIDDEN_SITE_REFERENCE = re.compile(
-    r"(?:src|href)\s*=\s*[\"']?https?://|url\(\s*[\"']?https?://",
+    r"\b(?:src|href)\b\s*=\s*[\"']?(?:https?:)?//"
+    r"|\burl\(\s*[\"']?(?:https?:)?//",
     re.IGNORECASE,
+)
+SITE_TEXT_EXTENSIONS = frozenset(
+    {".css", ".html", ".htm", ".js", ".json", ".mjs", ".svg", ".txt", ".webmanifest"}
 )
 
 
@@ -77,12 +81,9 @@ def validate(repo_root: Path) -> list[str]:
 
     site_dir = repo_root / "site"
     for site_path in site_dir.rglob("*"):
-        if not site_path.is_file():
+        if not site_path.is_file() or site_path.suffix.lower() not in SITE_TEXT_EXTENSIONS:
             continue
-        try:
-            text = site_path.read_text("utf-8")
-        except UnicodeDecodeError:
-            continue
+        text = site_path.read_text("utf-8", errors="replace")
         if "share.note.youdao.com" in text or FORBIDDEN_SITE_REFERENCE.search(text):
             errors.append(f"forbidden URL in {site_path.name}")
 

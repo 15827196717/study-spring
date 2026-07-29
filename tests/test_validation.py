@@ -116,6 +116,31 @@ class ValidationTests(unittest.TestCase):
             self.assertIn("reader.html", errors)
             self.assertIn("theme.css", errors)
 
+    def test_reports_protocol_relative_site_references(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_valid_fixture(root)
+            (root / "site" / "protocol.html").write_text(
+                '<script src="//cdn.example.com/app.js"></script>',
+                encoding="utf-8",
+            )
+            (root / "site" / "protocol.css").write_text(
+                ".hero { background: url(//cdn.example.com/bg.png); }",
+                encoding="utf-8",
+            )
+            errors = "\n".join(validate(root))
+            self.assertIn("protocol.html", errors)
+            self.assertIn("protocol.css", errors)
+
+    def test_reports_remote_reference_after_invalid_utf8_byte(self):
+        with TemporaryDirectory() as temp:
+            root = Path(temp)
+            write_valid_fixture(root)
+            (root / "site" / "broken.html").write_bytes(
+                b'\xff<script src="https://example.com/app.js"></script>'
+            )
+            self.assertIn("broken.html", "\n".join(validate(root)))
+
     def test_reports_question_manifest_mismatch(self):
         with TemporaryDirectory() as temp:
             root = Path(temp)
