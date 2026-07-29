@@ -148,8 +148,11 @@ def parse_snapshot(snapshot: str) -> Note:
 
     flush_code()
     flush_section()
-    if len(source_toc_sections) == len(SECTION_FILES) and len(sections) < len(SECTION_FILES):
-        raise ValueError(f"expected ten real sections, got {len(sections)}")
+    is_full_snapshot = len(source_toc_sections) > 2 or len(questions) > 2
+    if is_full_snapshot and len(sections) != len(SECTION_FILES):
+        raise ValueError(
+            f"expected exactly ten real sections, got {len(sections)}"
+        )
     return Note(title, questions, tuple(sections))
 
 

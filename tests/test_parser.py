@@ -1,10 +1,20 @@
 from pathlib import Path
 import unittest
 
-from tools.note_converter.parser import parse_snapshot, question_titles
+from tools.note_converter.parser import SECTION_FILES, parse_snapshot, question_titles
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "minimal_snapshot.txt"
+
+
+def full_like_snapshot(toc_titles: list[str], body_titles: list[str]) -> str:
+    lines = ["- iframe:", "  - generic: title"]
+    for number, title in enumerate(toc_titles, start=1):
+        lines.extend((f"  - generic: {title}", f"  - generic: {number}. question"))
+    for title in body_titles:
+        lines.extend((f"  - generic: {title}", "  - generic: answer"))
+    lines.append("- paragraph: footer")
+    return "\n".join(lines)
 
 
 class ParserTests(unittest.TestCase):
@@ -71,6 +81,18 @@ class ParserTests(unittest.TestCase):
             if block.kind == "image"
         ]
         self.assertEqual(["http://images.example.test/note.png"], images)
+
+    def test_rejects_duplicate_detailed_sections_in_a_full_snapshot(self):
+        titles = [title for title, _ in SECTION_FILES]
+
+        with self.assertRaisesRegex(ValueError, "exactly ten real sections"):
+            parse_snapshot(full_like_snapshot(titles, [*titles, titles[-1]]))
+
+    def test_rejects_an_incomplete_full_snapshot_with_a_malformed_toc(self):
+        titles = [title for title, _ in SECTION_FILES[:-1]]
+
+        with self.assertRaisesRegex(ValueError, "exactly ten real sections"):
+            parse_snapshot(full_like_snapshot(titles, titles))
 
 if __name__ == "__main__":
     unittest.main()
