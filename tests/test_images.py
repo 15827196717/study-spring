@@ -37,8 +37,10 @@ class ImageTests(unittest.TestCase):
             root = Path(temp)
             cache = root / "cache"
             cache.mkdir()
-            with self.assertRaisesRegex(FileNotFoundError, "image_001"):
-                materialize_images(note_with_images(1), cache, root / "output")
+            Image.new("RGB", (8, 8), "red").save(cache / "image_001.jpg")
+            Image.new("RGB", (8, 8), "blue").save(cache / "image_002.png")
+            with self.assertRaisesRegex(FileNotFoundError, "image_003"):
+                materialize_images(note_with_images(3), cache, root / "output")
 
 
 if __name__ == "__main__":
