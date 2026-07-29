@@ -48,7 +48,7 @@ Spring支持两种类型的事务管理：
 
 - 基于 @Transactional 的全注解方式： 将声明式事务管理简化到了极致。开发人员只需在配置文件中加上一行启用相关后处理 Bean 的配置，然后在需要实施事务管理的方法或者类上使用 @Transactional 指定事务规则即可实现事务管理，而且功能也不必其他方式逊色。
 
-## 58、说一下Spring的事务传播行为
+58、说一下Spring的事务传播行为
 
 事务的传播特性指的是当一个事务方法被另一个事务方法调用时，这个事务方法应该如何进行？
 
@@ -140,15 +140,15 @@ Spring支持两种类型的事务管理：
 
 并发会产生什么问题？
 
-## 1.脏读
+1.脏读
 
-## 2.不可重复度
+2.不可重复度
 
-## 3.幻影读
+3.幻影读
 
 概念： 通过设置隔离级别可解决在并发过程中产生的那些问题：
 
-## 1.脏读
+1.脏读
 
 - 事务1 begin
 
@@ -172,7 +172,7 @@ Spring支持两种类型的事务管理：
 
 - #balance=1000
 
-## 1. 一个事务，读取了另一个事务中没有提交的数据，会在本事务中产生的数据不一致的问题
+1. 一个事务，读取了另一个事务中没有提交的数据，会在本事务中产生的数据不一致的问题
 
 解决方式：@Transactional(isolation = Isolation.READ_COMMITTED)
 
@@ -180,7 +180,7 @@ Spring支持两种类型的事务管理：
 
 要求Transaction01只能读取Transaction02已提交的修改。
 
-## 2.不可重复度
+2.不可重复度
 
 - 事务1 begin
 
@@ -214,7 +214,7 @@ Spring支持两种类型的事务管理：
 
 确保Transaction01可以多次从一个字段中读取到相同的值，即Transaction01执行期间禁止其它事务对这个字段进行更新。(行锁）
 
-## 3.幻影读
+3.幻影读
 
 - 事务1 begin
 
@@ -284,33 +284,33 @@ Spring支持两种类型的事务管理：
 
 原理：
 
-## 1.解析切面 ——> bean的创建前第一个bean的后置处理器进行解析advisor(pointcut(通过@Transacational解析的切点) ， advise) (这个advisor 是通过@EnableTransactionManagement注册了一个配置类，该配置类就配置了adivsor)
+1.解析切面 ——> bean的创建前第一个bean的后置处理器进行解析advisor(pointcut(通过@Transacational解析的切点) ， advise) (这个advisor 是通过@EnableTransactionManagement注册了一个配置类，该配置类就配置了adivsor)
 
-## 2.创建动态代理——> bean的初始化后调用bean的后置处理器进行创建动态代理(有接口使用jdk，没接口使用cglib)， 创建动态代理之前会先根据advisor中pointCut 匹配@Transacational( 方法里面是不是有、类上面是不是有、接口或父类上面是不是有 ) ， 匹配到就创建动态代理。
+2.创建动态代理——> bean的初始化后调用bean的后置处理器进行创建动态代理(有接口使用jdk，没接口使用cglib)， 创建动态代理之前会先根据advisor中pointCut 匹配@Transacational( 方法里面是不是有、类上面是不是有、接口或父类上面是不是有 ) ， 匹配到就创建动态代理。
 
-## 3.调用： 动态代理
+3.调用： 动态代理
 
 try{
 
-## 4.创建一个数据库连接Connection, 并且修改数据库连接的autoCommit属性为false，禁止此连接的自动提交，这是实现Spring事务非常重要的一步
+4.创建一个数据库连接Connection, 并且修改数据库连接的autoCommit属性为false，禁止此连接的自动提交，这是实现Spring事务非常重要的一步
 
-## 5.然后执行目标方法方法，方法中会执行数据库操作sql
+5.然后执行目标方法方法，方法中会执行数据库操作sql
 
 }
 
 catch{
 
-## 6.如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务
+6.如果出现了异常，并且这个异常是需要回滚的就会回滚事务，否则仍然提交事务
 
 }
 
-## 7.执行完当前方法后，如果没有出现异常就直接提交事务
+7.执行完当前方法后，如果没有出现异常就直接提交事务
 
 ![笔记图片 25](../assets/images/note-025.png)
 
 ## 61. Spring事务传播行为实现原理：
 
-## 2.Spring的事务信息是存在ThreadLocal中的， 所以一个线程永远只能有一个事务，
+2.Spring的事务信息是存在ThreadLocal中的， 所以一个线程永远只能有一个事务，
 
 - 融入：当传播行为是融入外部事务则拿到ThreadLocal中的Connection、共享一个数据库连接共同提交、回滚；
 
@@ -332,11 +332,11 @@ try{
 
 ## 62.Spring多线程事务 能否保证事务的一致性（同时提交、同时回滚）？
 
-## 1.Spring的事务信息是存在ThreadLocal中的Connection， 所以一个线程永远只能有一个事务
+1.Spring的事务信息是存在ThreadLocal中的Connection， 所以一个线程永远只能有一个事务
 
-## 2. 所以Spring 的事务是无法实现事务一致性的
+2. 所以Spring 的事务是无法实现事务一致性的
 
-## 3. 可以通过编程式事务，或者通过分布式事务的思路:二阶段提交方式
+3. 可以通过编程式事务，或者通过分布式事务的思路:二阶段提交方式
 
 ## 63.Spring事务的失效原因？
 
@@ -356,7 +356,7 @@ try{
 
 - 不支持：
 
-## 1. 内部方法调用导致事务传播失效.
+1. 内部方法调用导致事务传播失效.
 
 ```
 @Transactionalpublic void aadd()throws TimeoutException{
@@ -373,7 +373,7 @@ b();}@Transactional(propagation=Propagation.NEVER)public void b() { }
 @EnableAspectJAutoProxy(exposeProxy= true)
 ```
 
-## 2. 多线程事务.
+2. 多线程事务.
 
 ```
 @Transactionalpublic void mainThread()throws Exception{jdbcTemplate.execute("INSERT INTO `test`.`user` ( `age`, `name`, `city`) VALUES ( 18, 'xushu', 'BeiJin');"); newThread(() -> { childThread(); }).start();}private void childThread() {jdbcTemplate.execute("INSERT INTO `test`.`user` ( `age`, `name`, `city`) VALUES ( 66, 'xushu666', 'BeiJin');"); throw newRuntimeException("出错~~~");}

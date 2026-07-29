@@ -1,20 +1,16 @@
-import re
-
 from .model import Note
-
-
-QUESTION = re.compile(r"^\d+[.、]")
 
 
 def render_chapters(note: Note, image_paths: dict[str, str]) -> dict[str, str]:
     """Render each note section as a repository-relative Markdown chapter."""
+    questions = set(note.questions)
     rendered: dict[str, str] = {}
     image_number = 0
 
     for index, section in enumerate(note.sections):
         lines = [f"# {section.title}", "", "[返回首页](../README.md)", ""]
         for block in section.blocks:
-            if block.kind == "paragraph" and QUESTION.match(block.text):
+            if block.kind == "paragraph" and block.text in questions:
                 lines.extend((f"## {block.text}", ""))
             elif block.kind == "paragraph":
                 lines.extend((block.text, ""))

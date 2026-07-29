@@ -48,9 +48,9 @@ Spring切面可以应用5种类型的通知：
 
 Spring在5.2.7之后就改变的advice 的执行顺序。 在github官网版本更新说明中有说明：如图
 
-## 1、正常执行：@Before--->方法---->@AfterReturning--->@After
+1、正常执行：@Before--->方法---->@AfterReturning--->@After
 
-## 2、异常执行：@Before--->方法---->@AfterThrowing--->@After
+2、异常执行：@Before--->方法---->@AfterThrowing--->@After
 
 ![笔记图片 21](../assets/images/note-021.png)
 
@@ -190,11 +190,11 @@ Aop的实现大致分为三大步：JavaConfig
 
 当@EnableAspectJAutoProxy 会通过@Import注册一个BeanPostProcessor处理AOP
 
-## 1.解析切面： 在Bean创建之前的第一个Bean后置处理器会去解析切面（解析切面中通知、切点，一个通知就会解析成一个advisor(通知、切点)）
+1.解析切面： 在Bean创建之前的第一个Bean后置处理器会去解析切面（解析切面中通知、切点，一个通知就会解析成一个advisor(通知、切点)）
 
-## 2.创建动态代理 正常的Bean初始化后调用BeanPostProcessor 拿到之前缓存的advisor ，再通过advisor中pointcut 判断当前Bean是否被切点表达式匹配，如果匹配，就会为Bean创建动态代理（创建方式1.jdk动态代理2.cglib)。
+2.创建动态代理 正常的Bean初始化后调用BeanPostProcessor 拿到之前缓存的advisor ，再通过advisor中pointcut 判断当前Bean是否被切点表达式匹配，如果匹配，就会为Bean创建动态代理（创建方式1.jdk动态代理2.cglib)。
 
-## 3.调用：拿到动态代理对象， 调用方法 就会判断当前方法是否增强的方法， 就会通过调用链的方式依次去执行通知.
+3.调用：拿到动态代理对象， 调用方法 就会判断当前方法是否增强的方法， 就会通过调用链的方式依次去执行通知.
 
 ![笔记图片 23](../assets/images/note-023.png)
 

@@ -20,13 +20,13 @@ In Spring, the objects that form the backbone of your application and that are m
 
 ## 14.配置Bean有哪几种方式？
 
-## 1.xml: <bean class="com.tuling.UserService" id="">
+1.xml: <bean class="com.tuling.UserService" id="">
 
-## 2.注解：@Component(@Controller 、@Service、@Repostory) 前提：需要配置扫描包<component-scan> 反射调用构造方法
+2.注解：@Component(@Controller 、@Service、@Repostory) 前提：需要配置扫描包<component-scan> 反射调用构造方法
 
-## 3.javaConfig: @Bean 可以自己控制实例化过程
+3.javaConfig: @Bean 可以自己控制实例化过程
 
-## 4.@Import 3种方式
+4.@Import 3种方式
 
 ## 15.解释Spring支持的几种bean的作用域
 
@@ -48,11 +48,11 @@ Spring框架支持以下五种bean的作用域：
 
 由于不会每次都新创建新对象所以有一下几个性能上的优势：
 
-## 1.减少了新生成实例的消耗新生成实例消耗包括两方面，第一，spring会通过反射或者cglib来生成bean实例这都是耗性能的操作，其次给对象分配内存也会涉及复杂算法。 提供服务器内存的利用率 ，减少服务器内存消耗
+1.减少了新生成实例的消耗新生成实例消耗包括两方面，第一，spring会通过反射或者cglib来生成bean实例这都是耗性能的操作，其次给对象分配内存也会涉及复杂算法。 提供服务器内存的利用率 ，减少服务器内存消耗
 
-## 2.减少jvm垃圾回收由于不会给每个请求都新生成bean实例，所以自然回收的对象少了。
+2.减少jvm垃圾回收由于不会给每个请求都新生成bean实例，所以自然回收的对象少了。
 
-## 3.可以快速获取到bean因为单例的获取bean操作除了第一次生成之外其余的都是从缓存里获取的所以很快。
+3.可以快速获取到bean因为单例的获取bean操作除了第一次生成之外其余的都是从缓存里获取的所以很快。
 
 ## 17.Spring实例化bean方式的几种方式
 
@@ -124,7 +124,7 @@ ThreadLocal会为每一个线程提供一个独立的变量副本，从而隔离
 
 - autodetect：自动探测，如果有构造方法，通过 construct的方式自动装配，否则使用 byType的方式自动装配。 （在spring3.0+弃用）
 
-## 24.有哪些生命周期回调方法？有哪几种实现方式？
+24.有哪些生命周期回调方法？有哪几种实现方式？
 
 有两个重要的bean 生命周期方法，第一个是init ， 它是在容器加载bean的时候被调用。第二个方法是 destroy 它是在容器卸载类的时候被调用。
 
@@ -278,11 +278,11 @@ BeanDefinition的加载过程就是将 概念态的Bean注册为定义态的Bean
 
 ## 31、Spring容器启动时，为什么先加载BeanFactoryPostProcess
 
-## 1.因为BeanDefinition会在ioc容器加载的先注册， 而BeanFactoryPostProcess就是在所有的BeanDefinition注册完后做扩展的，所以要先加载BeanFactoryPostProcess
+1.因为BeanDefinition会在ioc容器加载的先注册， 而BeanFactoryPostProcess就是在所有的BeanDefinition注册完后做扩展的，所以要先加载BeanFactoryPostProcess
 
-## 2. 解析配置类的组件 它就实现BeanFactoryPostProcess， 所以要先去加载BeanFactoryPostProcess
+2. 解析配置类的组件 它就实现BeanFactoryPostProcess， 所以要先去加载BeanFactoryPostProcess
 
-## 1.方式一 基于SmartInitializingSingleton接口
+1.方式一 基于SmartInitializingSingleton接口
 
 Source
 
@@ -316,7 +316,7 @@ packagecom.artisan.beanLoadedExtend.smartinit;importorg.springframework.beans.fa
 packagecom.artisan.beanLoadedExtend.smartinit;importorg.springframework.context.annotation.AnnotationConfigApplicationContext;public classTest{ public static void main(String[]args) {AnnotationConfigApplicationContext ac= newAnnotationConfigApplicationContext(SmartInitConfig.class); }}
 ```
 
-## 2.方式二 基于Spring事件监听
+2.方式二 基于Spring事件监听
 
 Source
 
@@ -348,6 +348,6 @@ BeanDefinition的注册顺序由什么来决定的？
 
 ![笔记图片 15](../assets/images/note-015.png)
 
-## 6、BeanDefinitionRegistryPostProcessor
+6、BeanDefinitionRegistryPostProcessor
 
 [上一章](02-spring-ioc.md) · [返回首页](../README.md) · [下一章](04-spring-annotations.md)

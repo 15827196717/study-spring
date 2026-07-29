@@ -60,6 +60,28 @@ class MarkdownTests(unittest.TestCase):
             chapters["docs/02-two.md"].splitlines()[-1],
         )
 
+    def test_keeps_numbered_answer_paragraphs_out_of_question_headings(self):
+        note = Note(
+            "Spring Notes",
+            ("1. Canonical question",),
+            (
+                Section(
+                    "01-one",
+                    "One",
+                    (
+                        Block("paragraph", "1. Canonical question"),
+                        Block("paragraph", "1. Numbered answer step"),
+                    ),
+                ),
+            ),
+        )
+
+        chapter = render_chapters(note, {})["docs/01-one.md"]
+
+        self.assertIn("## 1. Canonical question", chapter)
+        self.assertNotIn("## 1. Numbered answer step", chapter)
+        self.assertIn("1. Numbered answer step\n", chapter)
+
 
 if __name__ == "__main__":
     unittest.main()

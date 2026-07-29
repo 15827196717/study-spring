@@ -127,7 +127,7 @@ ApplicationContext接口作为BeanFactory的派生，除了提供BeanFactory所�
 
 ![笔记图片 5](../assets/images/note-005.png)
 
-## 10.BeanFactory 和FactoryBean有什么区别？
+10.BeanFactory 和FactoryBean有什么区别？
 
 BeanFactory是一个工厂，也就是一个容器，是来管理和生产bean的；
 
@@ -145,19 +145,19 @@ FactoryBean是一个bean，但是它是一个特殊的bean，所以也是由Bean
 
 从概念态--->定义态的过程
 
-## 1、实例化一个ApplicationContext的对象；
+1、实例化一个ApplicationContext的对象；
 
 2：调用bean工厂后置处理器完成扫描；
 
 3：循环解析扫描出来的类信息；
 
-## 4、实例化一个BeanDefinition对象来存储解析出来的信息；
+4、实例化一个BeanDefinition对象来存储解析出来的信息；
 
-## 5、把实例化好的beanDefinition对象put到beanDefinitionMap当中缓存起来，
+5、把实例化好的beanDefinition对象put到beanDefinitionMap当中缓存起来，
 
 以便后面实例化bean；
 
-## 6、再次调用其他bean工厂后置处理器；
+6、再次调用其他bean工厂后置处理器；
 
 从定义态到纯净态
 
@@ -191,15 +191,15 @@ abstract等等；
 
 初始化
 
-## 13、判断bean的类型回调Aware接口
+13、判断bean的类型回调Aware接口
 
-## 14、调用生命周期回调方法
+14、调用生命周期回调方法
 
-## 15、如果需要代理则完成代理
+15、如果需要代理则完成代理
 
 创建完成
 
-## 16、put到单例池——bean完成——存在spring容器当中
+16、put到单例池——bean完成——存在spring容器当中
 
 ![笔记图片 6](../assets/images/note-006.png)
 

@@ -104,7 +104,7 @@
 
 ![笔记图片 17](../assets/images/note-017.png)
 
-## 39.@Autowired 注解有什么作用
+39.@Autowired 注解有什么作用
 
 @Autowired默认是按照类型装配注入的，默认情况下它要求依赖对象必须存在（可以设置它required属性为false）。@Autowired 注解提供了更细粒度的控制，包括在何处以及如何完成自动装配。
 
@@ -122,9 +122,9 @@
 
 记住：@Autowired 通过Bean的后置处理器进行解析的
 
-## 1. 在创建一个Spring上下文的时候再构造函数中进行注册AutowiredAnnotationBeanPostProcessor
+1. 在创建一个Spring上下文的时候再构造函数中进行注册AutowiredAnnotationBeanPostProcessor
 
-## 2. 在Bean的创建过程中进行解析
+2. 在Bean的创建过程中进行解析
 
 - 在实例化后预解析（解析@Autowired标注的属性、方法 比如：把属性的类型、名称、属性所在的类..... 元数据缓存起）
 
@@ -142,39 +142,39 @@
 
 ## 42.配置类@Configuration的作用解析原理:
 
-## 1.@Configuration用来代替xml配置方式spring.xml配置文件 <bean>
+1.@Configuration用来代替xml配置方式spring.xml配置文件 <bean>
 
-## 2. 没有@Configuration也是可以配置@Bean
+2. 没有@Configuration也是可以配置@Bean
 
-## 3. @Configuration加与不加有什么区别
+3. @Configuration加与不加有什么区别
 
-## 4. 加了@Configuration会为配置类创建cglib动态代理（保证配置类@Bean方法调用Bean的单例），@Bean方法的调用就会通过容器.getBean进行获取
+4. 加了@Configuration会为配置类创建cglib动态代理（保证配置类@Bean方法调用Bean的单例），@Bean方法的调用就会通过容器.getBean进行获取
 
 原理：
 
-## 1.创建Spring上下文的时候会注册一个解析配置的处理器ConfigurationClassPostProcessor（实现BeanFactoryPostProcessor和BeanDefinitionRegistryPostProcessor)
+1.创建Spring上下文的时候会注册一个解析配置的处理器ConfigurationClassPostProcessor（实现BeanFactoryPostProcessor和BeanDefinitionRegistryPostProcessor)
 
-## 2.在调用invokeBeanFactoryPostProcessor，就会去调用ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry进行解析配置（解析配置类说白就是去解析各种注解(@Bean @Configuration@Import @Component ... 就是注册BeanDefinition)
+2.在调用invokeBeanFactoryPostProcessor，就会去调用ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry进行解析配置（解析配置类说白就是去解析各种注解(@Bean @Configuration@Import @Component ... 就是注册BeanDefinition)
 
-## 3. ConfigurationClassPostProcessor.postProcessBeanFactory去创建cglib动态代理
+3. ConfigurationClassPostProcessor.postProcessBeanFactory去创建cglib动态代理
 
 ## 43.@Bean之间的方法调用是怎么保证单例的？
 
 （ @Configuration加与不加的区别是什么？）
 
-## 1.如果希望@bean的方法返回是对象是单例 需要在类上面加上@Configuration,
+1.如果希望@bean的方法返回是对象是单例 需要在类上面加上@Configuration,
 
-## 2.Spring 会在invokeBeanFactoryPostProcessor 通过内置BeanFactoryPostProcessor中会CGLib生成动态代理代理
+2.Spring 会在invokeBeanFactoryPostProcessor 通过内置BeanFactoryPostProcessor中会CGLib生成动态代理代理
 
-## 3.当@Bean方法进行互调时， 则会通过CGLIB进行增强，通过调用的方法名作为bean的名称去ioc容器中获取，进而保证了@Bean方法的单例
+3.当@Bean方法进行互调时， 则会通过CGLIB进行增强，通过调用的方法名作为bean的名称去ioc容器中获取，进而保证了@Bean方法的单例
 
 ## 44.要将一个第三方的类配成为Bean有哪些方式？
 
 - 1. @Bean
 
-## 2. @Import
+2. @Import
 
-## 3.通过Spring的扩展接口：BeanDefinitionRegistryPostProcessor
+3.通过Spring的扩展接口：BeanDefinitionRegistryPostProcessor
 
 ## 45、为什么@ComponentScan 不设置basePackage也会扫描？
 
