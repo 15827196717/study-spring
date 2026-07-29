@@ -1,5 +1,6 @@
 from pathlib import Path
 import re
+import subprocess
 import unittest
 
 from tools.note_converter.model import (
@@ -191,6 +192,18 @@ class SiteTests(unittest.TestCase):
             r"\.question\s+:where\(p,\s*li\)\s*\{[^}]*overflow-wrap:\s*anywhere",
         )
         self.assertRegex(styles, r"pre\s*\{[^}]*overflow-x:\s*auto")
+
+    def test_search_updates_toc_and_progress_using_only_visible_headings(self):
+        result = subprocess.run(
+            ["node", str(Path(__file__).with_name("site_search_behavior.js"))],
+            cwd=SITE_DIR.parent,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            check=False,
+        )
+
+        self.assertEqual(0, result.returncode, result.stdout + result.stderr)
 
 
 if __name__ == "__main__":

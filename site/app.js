@@ -12,6 +12,8 @@ function applySearch(query) {
   });
   document.querySelector("[data-search-count]").textContent =
     needle ? `${visible} 个匹配结果` : "";
+  updateProgress();
+  syncActiveHeading();
 }
 
 function setActiveHeading(id) {
@@ -21,13 +23,17 @@ function setActiveHeading(id) {
 }
 
 function syncActiveHeading(preferHash = false) {
-  const headings = Array.from(document.querySelectorAll("article h2, article h3"));
+  const headings = Array.from(
+    document.querySelectorAll("article h2, article h3")
+  ).filter((heading) => !heading.closest("[hidden]"));
   if (!headings.length) return;
 
   let active = headings[0];
-  if (preferHash && location.hash) {
-    const hashTarget = document.getElementById(location.hash.slice(1));
-    if (hashTarget) active = hashTarget;
+  const hashTarget = location.hash
+    ? document.getElementById(location.hash.slice(1))
+    : null;
+  if (preferHash && hashTarget && headings.includes(hashTarget)) {
+    active = hashTarget;
   } else if (
     scrollY + innerHeight >= document.documentElement.scrollHeight - 1
   ) {
