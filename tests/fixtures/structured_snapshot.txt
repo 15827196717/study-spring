@@ -1,0 +1,28 @@
+- generic "page chrome"
+- iframe:
+  - generic: Spring结构化保真测试
+  - generic: 一、Spring Framework
+  - generic: 1.结构化内容
+  - generic: 二、Spring IOC
+  - generic: 2.结束
+  - generic: 一、Spring Framework
+  - generic: 1.结构化内容
+  - generic: XML 示例：<bean> & <context>
+  - link "Spring 版本说明":
+    - /url: https://github.com/spring-projects/spring-framework/releases/tag/v5.2.7.RELEASE
+    - generic: Spring 版本说明
+  - table:
+    - rowgroup:
+      - row "事务一 事务二":
+        - cell "事务一":
+          - generic: 事务一
+        - cell "事务二":
+          - generic: 事务二
+      - 'row "update t_user set balance=800"':
+        - cell
+        - 'cell "update t_user set balance=800"':
+          - generic: update t_user
+          - generic: set balance=800
+  - generic: 二、Spring IOC
+  - generic: 2.结束
+- paragraph: footer

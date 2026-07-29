@@ -1,0 +1,20 @@
+- generic "page chrome"
+- iframe:
+  - generic: Spring鏈€鏂板叏瀹舵《闈㈣瘯棰?
+  - generic: 涓€銆丼pring Framework
+  - generic: 1.闂涓€
+  - generic: 浜屻€丼pring IOC
+  - generic: 2.闂浜?
+  - generic: 涓€銆丼pring Framework
+  - generic: 1.闂涓€
+  - generic: 绛旀涓€
+  - code: public
+  - code
+  - code: class
+  - code: Demo
+  - img "https://share.note.youdao.com/yws/public/resource/example/1"
+  - generic: 浜屻€丼pring IOC
+  - generic: 2.闂浜?
+  - list:
+    - generic: 绛旀浜?
+- paragraph: footer

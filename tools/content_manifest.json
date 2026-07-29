@@ -1,0 +1,320 @@
+{
+  "section_titles": [
+    "一、Spring Framework",
+    "二、Spring IOC",
+    "三、Spring Beans",
+    "四、Spring注解",
+    "五、Spring AOP",
+    "六、Spring事务",
+    "七、Spring其他",
+    "八、SpringMVC",
+    "九、Spring Boot",
+    "十、微服务"
+  ],
+  "chapter_files": [
+    "docs/01-spring-framework.md",
+    "docs/02-spring-ioc.md",
+    "docs/03-spring-beans.md",
+    "docs/04-spring-annotations.md",
+    "docs/05-spring-aop.md",
+    "docs/06-spring-transactions.md",
+    "docs/07-spring-other.md",
+    "docs/08-spring-mvc.md",
+    "docs/09-spring-boot.md",
+    "docs/10-microservices.md"
+  ],
+  "question_count": 97,
+  "question_titles_sha256": "af69f6acea9a863897f96921926f34a6bdc8f7e1708ad6e441b09f69b97ef434",
+  "chapter_sha256": {
+    "docs/01-spring-framework.md": "59024d6991ca7f7b45f79b0d4fe87564cb42198bd96ad53ce3c3f988a9c8e375",
+    "docs/02-spring-ioc.md": "634a53ce3da225e57f4bddfbed854dd3458e7e0dd2580efc6376c6278fa715f1",
+    "docs/03-spring-beans.md": "5d7141ea26f749a4dfdd95170bc399ccf7f4c8db53eef4117e6ae35eae0941c9",
+    "docs/04-spring-annotations.md": "2a8348900041d93c3391889f498d3ea61efc25aec67bdbb6d5d7869a02ebf410",
+    "docs/05-spring-aop.md": "e9f692c019524c33d41c8b26f58ce872b765af2eee945625c282e9066359b727",
+    "docs/06-spring-transactions.md": "c9e816e02cbb3053ae2962fa6acf8db768ede279cd5ec3fec7107e0f2d409b6f",
+    "docs/07-spring-other.md": "0bba4c2235886a8be80ba62c4554ccd85ca89349d2c849954623b1751984868a",
+    "docs/08-spring-mvc.md": "b5a51cae16b1a9a5504642cdb114332a823159b61102f4cd27fca5e9a6bf51b8",
+    "docs/09-spring-boot.md": "857724771de3339e266bdbb4799ffefd0905e08e2eea1bfdb2f41c1fb5ff4732",
+    "docs/10-microservices.md": "b6f6da45d4da6d029400d2da8c5c79204b5b2758d4f4fa4847eda36c6e9241cc"
+  },
+  "site_index_sha256": "337c7b3afe65e049a9e4606fbd60574d6b482bc3c8e9a154ddb28dd46d7533e8",
+  "image_count": 69,
+  "images": [
+    {
+      "path": "assets/images/note-001.png",
+      "sha256": "472984a54027ebd67ba07568c4abacc6ccd4531f241a51cbe96ab9c356c5ddb7"
+    },
+    {
+      "path": "assets/images/note-002.png",
+      "sha256": "2f4f7755ce2637e331eb0559c70f45585b90d2eb24b047d648a6050ab716090d"
+    },
+    {
+      "path": "assets/images/note-003.jpg",
+      "sha256": "f5b35d148e241448d275e8c703760f25ca36d9871b5aec367a97f143daf958fb"
+    },
+    {
+      "path": "assets/images/note-004.png",
+      "sha256": "bd4fae1cee91b708346c4b88520d785963c1c9309172bfac98fac1845cb633f6"
+    },
+    {
+      "path": "assets/images/note-005.png",
+      "sha256": "da5d040dd1b8dc86e8a6f4989317c270bf5548bb44b3ded9aaca7b42034b0c76"
+    },
+    {
+      "path": "assets/images/note-006.png",
+      "sha256": "1cc42d3d8ed765e66d67ed4ed82eb896f047a8566e9ce9229f03110f0c172875"
+    },
+    {
+      "path": "assets/images/note-007.png",
+      "sha256": "8804b367b556351a4e360fd9839eee9e2f590853ca2fca85c17817739b5e837e"
+    },
+    {
+      "path": "assets/images/note-008.png",
+      "sha256": "91e48420d7277c1a02feaffaabb5318f0bece220f17a92bb533c6f77ff421b49"
+    },
+    {
+      "path": "assets/images/note-009.png",
+      "sha256": "0d7393e49d263733941e1ea22e64773dfde9e840b1975b180e25724e781db6df"
+    },
+    {
+      "path": "assets/images/note-010.png",
+      "sha256": "76eb92852a45f48a5a6f7a223606540fc5c970d38ed4a32f713178a42e7b60ca"
+    },
+    {
+      "path": "assets/images/note-011.png",
+      "sha256": "72a7c55e80ce9cc23289aa2b4796c49e16d7c81c1534124fe4f3dd58eb2dbbde"
+    },
+    {
+      "path": "assets/images/note-012.png",
+      "sha256": "f0296ad5952805fe4583477fc407b9e8efbbff6280fff6c668662b56f5e98b83"
+    },
+    {
+      "path": "assets/images/note-013.png",
+      "sha256": "873389739666bd26344c09d8a61929ba6383f3e93d98a58e3eae557f5f649611"
+    },
+    {
+      "path": "assets/images/note-014.png",
+      "sha256": "618cbc8c73bf86205984f5af66440c8a7ceb1d792369da9c78dbaa48ccdd2d84"
+    },
+    {
+      "path": "assets/images/note-015.png",
+      "sha256": "3a6cfdb8c6d0d5c9c623f80b88a4ca8e80d6e507e28ac6b721c17267507c2cb7"
+    },
+    {
+      "path": "assets/images/note-016.png",
+      "sha256": "3fb4b8f24f5284b2cdcdfbc62d1d0e274c7de1c5165b429bf7366040327a56dc"
+    },
+    {
+      "path": "assets/images/note-017.png",
+      "sha256": "b167c83424a7c55cec6c279e584b5db0d9f2190ada150fecfd5bcaf8bec581ee"
+    },
+    {
+      "path": "assets/images/note-018.png",
+      "sha256": "21af023e52f8638b5c39a084b1c0cb9ed337b955d38a12bad752f9e6b98b218a"
+    },
+    {
+      "path": "assets/images/note-019.png",
+      "sha256": "0f2ac62a616949f0d9392ca96dcb6d4090a63744b2e86402a01bd2c6cd99a942"
+    },
+    {
+      "path": "assets/images/note-020.png",
+      "sha256": "4e1b1eea3a66c821a72d081957a911dcb9f53b01e069cabead74534f37013798"
+    },
+    {
+      "path": "assets/images/note-021.png",
+      "sha256": "9aa13df00eee7aa4383947680aef24b34620adb075bbeb6ab8598e53b3aa56a9"
+    },
+    {
+      "path": "assets/images/note-022.png",
+      "sha256": "cf0a18d033cbba761ef758b108dd55673c1820c341be30a58cf0d4b70b637489"
+    },
+    {
+      "path": "assets/images/note-023.png",
+      "sha256": "708d7323e9b60e1593db090130b38221191f6a07b00cbdc5d0eeaa30e008aa34"
+    },
+    {
+      "path": "assets/images/note-024.png",
+      "sha256": "4a69759807e08731ee650f0681412cc889ff1cdcefef217ead1ff2ecca1aaba0"
+    },
+    {
+      "path": "assets/images/note-025.png",
+      "sha256": "d32b52bf4966c554491f2f50d2b70577af496fc4342177e060bd817fbfee219b"
+    },
+    {
+      "path": "assets/images/note-026.png",
+      "sha256": "21ba83d91e34d2389020889d97a41b80c6a43e29c9cd5644a9668e769ce04fe9"
+    },
+    {
+      "path": "assets/images/note-027.png",
+      "sha256": "dc2c379603dce84bfdd9220eeefc1ff6002b0d0580afc4cdc7396c90578cffa7"
+    },
+    {
+      "path": "assets/images/note-028.png",
+      "sha256": "5f1c1320fbcf29c5602f7a62b3906299b88dd6356bc3c16a70b812aa125a45ac"
+    },
+    {
+      "path": "assets/images/note-029.png",
+      "sha256": "fa46584150f86054d9262d08bdaadc1779683f3018c3e5227a4efd9d90e31989"
+    },
+    {
+      "path": "assets/images/note-030.png",
+      "sha256": "9d8b6a43a82fdcebdbff97de9c78a9d05ceb8ddbc0013f137d62a536244b791f"
+    },
+    {
+      "path": "assets/images/note-031.png",
+      "sha256": "4d3a11de7bd6349731753ffd17954d135159ca0772e88dbaccfb43b93b2d94c7"
+    },
+    {
+      "path": "assets/images/note-032.png",
+      "sha256": "1b9ce2a4ff4114474bf71658a22ffe9cb12c83a650065f34df2c56137a9c3e61"
+    },
+    {
+      "path": "assets/images/note-033.png",
+      "sha256": "6d5a75fbc67570e40c9977f2ede14a4316e0680037d7a8350f4635e704abb169"
+    },
+    {
+      "path": "assets/images/note-034.png",
+      "sha256": "27206cfe5c66edc830ec34158d2d48265b059709a9cffa86a410ec572e45b5e5"
+    },
+    {
+      "path": "assets/images/note-035.png",
+      "sha256": "0b007c1c7d7390f0e87f93c31de1c26bec248d179f70afc5de0a9f27963ebfe1"
+    },
+    {
+      "path": "assets/images/note-036.png",
+      "sha256": "f8d97f6246dc00e2ea750180aa52ee9745774907be610aafa7b069383044e216"
+    },
+    {
+      "path": "assets/images/note-037.png",
+      "sha256": "8ea55d46a398273b581dfd01e8aa48f218f9c2e41f34992200166b1febfb6172"
+    },
+    {
+      "path": "assets/images/note-038.png",
+      "sha256": "d34eac32c2080576cd593a94ed7fc2eda07c3c12e1ac561d410cc4b86821295e"
+    },
+    {
+      "path": "assets/images/note-039.png",
+      "sha256": "5e113bd39035fcefcbb3c901cf8621ff6ec4cf682eea73f0a08d582c38fc9664"
+    },
+    {
+      "path": "assets/images/note-040.png",
+      "sha256": "37fafc9e3a323a3e95df6209ffd18fc16331c0014f7986650efe7ae016f476a2"
+    },
+    {
+      "path": "assets/images/note-041.png",
+      "sha256": "84e640528fa09049d56f5ef3f6bec2fbb3c21e11f4b8def6d155dae9c377cf45"
+    },
+    {
+      "path": "assets/images/note-042.png",
+      "sha256": "6f02f0bbebee84648c2814c6aec80237e50374937bc8521730ac0c479daef346"
+    },
+    {
+      "path": "assets/images/note-043.png",
+      "sha256": "462c1465404a225e887f8ca4235f459d95e12f8ad3a3eb3091cf5a1cea36770b"
+    },
+    {
+      "path": "assets/images/note-044.png",
+      "sha256": "57a07049e3e387e0bc4d7d313cea62ec2fa1930a49f9b78ec25e62adebe726ba"
+    },
+    {
+      "path": "assets/images/note-045.png",
+      "sha256": "8813d8e59554083f47d8c30dd50e53b6ca91139269c9d173bb8722ebc0a102d7"
+    },
+    {
+      "path": "assets/images/note-046.png",
+      "sha256": "1579bd94d51c51c981732d3f164cef1715ad74b0c167d288546a88c666ebbf5d"
+    },
+    {
+      "path": "assets/images/note-047.png",
+      "sha256": "e71f0b4c077a5a2a4dcb33ffe3bbe7aaa7f8078e6cbf046038ed9e0a95327254"
+    },
+    {
+      "path": "assets/images/note-048.jpg",
+      "sha256": "d4e47dbdc7c58ef3550116ed6d9ea3f4d0f5d55927b5bd0bdbd52d05918dac18"
+    },
+    {
+      "path": "assets/images/note-049.png",
+      "sha256": "d9e1cdbe7e4dbf0180b53213346e51343ed5eb19a5195f5602229286a60d866c"
+    },
+    {
+      "path": "assets/images/note-050.png",
+      "sha256": "4df24c06692b8c6c365a7125956c65a44457829f13f3b19a899c3cd2ebb1ed52"
+    },
+    {
+      "path": "assets/images/note-051.png",
+      "sha256": "5437b29150d89ee575a1f07b7fbe61b09a6b397fab16ed2adba443d6c037b86e"
+    },
+    {
+      "path": "assets/images/note-052.jpg",
+      "sha256": "98ba752c2a129d9ae331f0483ac3c291ce2eb578fffc6bafc22a150ad8f1857b"
+    },
+    {
+      "path": "assets/images/note-053.png",
+      "sha256": "91de93baee3068b80c67a60868aac350dcf1469399ba9a55b90f6a0c39fd833e"
+    },
+    {
+      "path": "assets/images/note-054.png",
+      "sha256": "f0eee74df753c3e25b1f5817cdf7a5e9a1ea4114ac1b4de6603beae464dc7f3d"
+    },
+    {
+      "path": "assets/images/note-055.png",
+      "sha256": "2fe377f06fa2ce2481cc54486f8661c38379fc2b8935d8fc68d9be5f89b9f471"
+    },
+    {
+      "path": "assets/images/note-056.png",
+      "sha256": "91cfe4a90a6bc3193f475f5a82f9cbd1ae6104e02870759c1e23c901610e7289"
+    },
+    {
+      "path": "assets/images/note-057.png",
+      "sha256": "3f1597285cb460d1e301bf9aa35453b4f444e3072a2a55a3205c352897ee8f64"
+    },
+    {
+      "path": "assets/images/note-058.png",
+      "sha256": "d87a843cd46b795aa43f8beb65049d5f68c6353c307e5d6fcc5785f22bf0600e"
+    },
+    {
+      "path": "assets/images/note-059.png",
+      "sha256": "5a924359bde0884bdb3076966d98471a5c189b7a425c9e6b44a0132b4521d3e1"
+    },
+    {
+      "path": "assets/images/note-060.png",
+      "sha256": "86d6914c48d0c3eabf9128760f02fa2deae7321c3d46a5b509a5f5d127bad2ac"
+    },
+    {
+      "path": "assets/images/note-061.png",
+      "sha256": "3dd40308a13a3fdd1373674ed600ed334e11f65814f6791dc0c2f3b6c4afce22"
+    },
+    {
+      "path": "assets/images/note-062.png",
+      "sha256": "ee846117b98fcfafe568097f1395d2108cc33bfb52b7c1ec0f505e20f263f2b9"
+    },
+    {
+      "path": "assets/images/note-063.png",
+      "sha256": "98b9cc0a9871190bd5346c457d17a6343b01690cebdfc45cbf7742d8b250b318"
+    },
+    {
+      "path": "assets/images/note-064.png",
+      "sha256": "27c03bf53ada91cbbed64dc74e6d14cc2eb61dded1f6eefa2afc00fbbccd1cd1"
+    },
+    {
+      "path": "assets/images/note-065.png",
+      "sha256": "d2d395bd1215dc146571fb19b7658f06af1763518b524cf849c786248378f62d"
+    },
+    {
+      "path": "assets/images/note-066.png",
+      "sha256": "85661a6ae13cc56c0da673a31be0e96c8d0dd888c0beedcac7ddc8863b9cfc18"
+    },
+    {
+      "path": "assets/images/note-067.png",
+      "sha256": "b60b4da7c5301405ece1784a28c83ac55aace40b4fa526161e80778d3ffebab3"
+    },
+    {
+      "path": "assets/images/note-068.png",
+      "sha256": "f4a4c3ad2854891ad5c40d311a6218129c7a13aa12de6276d2a53ec27f8c2880"
+    },
+    {
+      "path": "assets/images/note-069.png",
+      "sha256": "57a3356e85054c70f4a9d700239ff2726648d7b1f000f7cab99979ce981bb651"
+    }
+  ]
+}
