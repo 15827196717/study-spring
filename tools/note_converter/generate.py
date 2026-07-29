@@ -6,10 +6,11 @@ from pathlib import Path
 from .images import materialize_images
 from .markdown import render_chapters, render_readme
 from .parser import parse_snapshot
+from .site import render_site
 
 
 def generate(snapshot: Path, image_cache: Path, repo_root: Path) -> None:
-    """Materialize local images and write the README plus ten Markdown chapters."""
+    """Materialize local images and write Markdown chapters plus the reader site."""
     note = parse_snapshot(snapshot.read_text(encoding="utf-8"), require_complete=True)
     image_paths = materialize_images(
         note, image_cache, repo_root / "assets" / "images"
@@ -19,6 +20,11 @@ def generate(snapshot: Path, image_cache: Path, repo_root: Path) -> None:
         target = repo_root / relative_path
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding="utf-8")
+    site_dir = repo_root / "site"
+    site_dir.mkdir(parents=True, exist_ok=True)
+    (site_dir / "index.html").write_text(
+        render_site(note, image_paths), encoding="utf-8"
+    )
 
 
 def main() -> None:
