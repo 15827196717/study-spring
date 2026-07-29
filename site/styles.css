@@ -58,6 +58,7 @@ header input { width: min(32rem, 100%); }
 [data-toc] a { display: block; padding: .3rem .5rem; color: var(--muted); }
 [data-toc] a[aria-current] { color: var(--accent); font-weight: 700; }
 .toc-question { padding-left: 1.25rem !important; font-size: .9rem; }
+main { min-width: 0; }
 article {
   padding: clamp(1rem, 3vw, 3rem);
   background: var(--surface);
@@ -65,7 +66,14 @@ article {
   border-radius: 12px;
 }
 img { display: block; max-width: 100%; height: auto; margin: 1.5rem auto; }
-pre { overflow-x: auto; padding: 1rem; background: var(--code); border-radius: 8px; }
+.question :where(p, li) { overflow-wrap: anywhere; }
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+  background: var(--code);
+  border-radius: 8px;
+}
 button, input { font: inherit; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 [data-back-to-top] { position: fixed; right: 1rem; bottom: 1rem; }

@@ -14,15 +14,32 @@ function applySearch(query) {
     needle ? `${visible} 个匹配结果` : "";
 }
 
-function updateActiveHeading(entries) {
-  const visible = entries
-    .filter((entry) => entry.isIntersecting)
-    .sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top);
-  if (!visible.length) return;
-  const id = visible[0].target.id;
+function setActiveHeading(id) {
   document.querySelectorAll("[data-toc] a").forEach((link) => {
     link.toggleAttribute("aria-current", link.hash === `#${id}`);
   });
+}
+
+function syncActiveHeading(preferHash = false) {
+  const headings = Array.from(document.querySelectorAll("article h2, article h3"));
+  if (!headings.length) return;
+
+  let active = headings[0];
+  if (preferHash && location.hash) {
+    const hashTarget = document.getElementById(location.hash.slice(1));
+    if (hashTarget) active = hashTarget;
+  } else if (
+    scrollY + innerHeight >= document.documentElement.scrollHeight - 1
+  ) {
+    active = headings[headings.length - 1];
+  } else {
+    const activationLine = 1;
+    for (const heading of headings) {
+      if (heading.getBoundingClientRect().top > activationLine) break;
+      active = heading;
+    }
+  }
+  setActiveHeading(active.id);
 }
 
 function setTheme(theme) {
@@ -64,13 +81,16 @@ backToTop.addEventListener("click", () => {
 });
 addEventListener("scroll", () => {
   updateProgress();
+  syncActiveHeading();
   backToTop.hidden = scrollY < 600;
 }, { passive: true });
+addEventListener("hashchange", () => syncActiveHeading(true));
 
-const observer = new IntersectionObserver(updateActiveHeading, {
+const observer = new IntersectionObserver(() => syncActiveHeading(), {
   rootMargin: "-10% 0px -75% 0px",
 });
 document.querySelectorAll("article h2, article h3").forEach(
   (heading) => observer.observe(heading)
 );
 updateProgress();
+syncActiveHeading();

@@ -1,7 +1,12 @@
+from pathlib import Path
+import re
 import unittest
 
 from tools.note_converter.model import Block, Note, Section
 from tools.note_converter.site import render_site
+
+
+SITE_DIR = Path(__file__).parents[1] / "site"
 
 
 class SiteTests(unittest.TestCase):
@@ -67,6 +72,37 @@ class SiteTests(unittest.TestCase):
 
         self.assertIn('id="q-1-1"', html)
         self.assertIn('id="q-1-2"', html)
+
+    def test_active_toc_contract_covers_hash_scroll_and_page_bottom(self):
+        script = (SITE_DIR / "app.js").read_text(encoding="utf-8")
+
+        self.assertIn("function syncActiveHeading(", script)
+        self.assertRegex(
+            script,
+            re.compile(
+                r'addEventListener\("hashchange".*?syncActiveHeading',
+                re.DOTALL,
+            ),
+        )
+        self.assertRegex(
+            script,
+            re.compile(
+                r'addEventListener\("scroll",\s*\(\)\s*=>\s*\{.*?'
+                r"syncActiveHeading\(\)",
+                re.DOTALL,
+            ),
+        )
+        self.assertIn("scrollY + innerHeight >= document.documentElement.scrollHeight", script)
+
+    def test_mobile_content_wraps_without_disabling_code_scrolling(self):
+        styles = (SITE_DIR / "styles.css").read_text(encoding="utf-8")
+
+        self.assertRegex(styles, r"main\s*\{[^}]*min-width:\s*0")
+        self.assertRegex(
+            styles,
+            r"\.question\s+:where\(p,\s*li\)\s*\{[^}]*overflow-wrap:\s*anywhere",
+        )
+        self.assertRegex(styles, r"pre\s*\{[^}]*overflow-x:\s*auto")
 
 
 if __name__ == "__main__":
