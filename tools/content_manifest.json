@@ -1,0 +1,29 @@
+{
+  "section_titles": [
+    "涓€銆丼pring Framework",
+    "浜屻€丼pring IOC",
+    "涓夈€丼pring Beans",
+    "鍥涖€丼pring娉ㄨВ",
+    "浜斻€丼pring AOP",
+    "鍏€丼pring浜嬪姟",
+    "涓冦€丼pring鍏朵粬",
+    "鍏€丼pringMVC",
+    "涔濄€丼pring Boot",
+    "鍗併€佸井鏈嶅姟"
+  ],
+  "chapter_files": [
+    "docs/01-spring-framework.md",
+    "docs/02-spring-ioc.md",
+    "docs/03-spring-beans.md",
+    "docs/04-spring-annotations.md",
+    "docs/05-spring-aop.md",
+    "docs/06-spring-transactions.md",
+    "docs/07-spring-other.md",
+    "docs/08-spring-mvc.md",
+    "docs/09-spring-boot.md",
+    "docs/10-microservices.md"
+  ],
+  "question_count": 97,
+  "question_titles_sha256": "af69f6acea9a863897f96921926f34a6bdc8f7e1708ad6e441b09f69b97ef434",
+  "image_count": 69
+}
