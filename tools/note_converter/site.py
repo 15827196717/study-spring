@@ -13,10 +13,15 @@ def _question_id(text: str, sequence: int) -> str:
     return f"q-{number}-{sequence}"
 
 
+def _table_cell(lines: tuple[str, ...]) -> str:
+    return "<br>".join(escape(line) for line in lines)
+
+
 def render_site(note: Note, image_paths: dict[str, str]) -> str:
     """Render a semantic static reader using only local style and script files."""
     questions = set(note.questions)
     question_sequence = 0
+    image_sequence = 0
     toc: list[str] = []
     article: list[str] = []
 
@@ -30,9 +35,13 @@ def render_site(note: Note, image_paths: dict[str, str]) -> str:
         )
         question_open = False
         list_open = False
+        image_context = section.title
 
         for block in section.blocks:
-            if list_open and block.kind != "bullet":
+            is_list_item = block.kind == "bullet" or (
+                block.kind == "link" and block.is_bullet
+            )
+            if list_open and not is_list_item:
                 article.append("</ul>")
                 list_open = False
 
@@ -40,6 +49,7 @@ def render_site(note: Note, image_paths: dict[str, str]) -> str:
                 if question_open:
                     article.append("</section>")
                 question_sequence += 1
+                image_context = block.text
                 question_id = _question_id(block.text, question_sequence)
                 toc.append(
                     f'<a class="toc-question" href="#{question_id}">'
@@ -59,10 +69,52 @@ def render_site(note: Note, image_paths: dict[str, str]) -> str:
                 article.append(f"<li>{escape(block.text)}</li>")
             elif block.kind == "code":
                 article.append(f"<pre><code>{escape(block.text)}</code></pre>")
+            elif block.kind == "link":
+                if block.link is None:
+                    raise ValueError("link block is missing link data")
+                link = (
+                    f'<a href="{escape(block.link.url, quote=True)}">'
+                    f"{escape(block.link.label)}</a>"
+                )
+                if block.is_bullet:
+                    if not list_open:
+                        article.append("<ul>")
+                        list_open = True
+                    article.append(f"<li>{link}</li>")
+                else:
+                    article.append(f"<p>{link}</p>")
+            elif block.kind == "table":
+                if block.table is None:
+                    raise ValueError("table block is missing table data")
+                if block.table.rows:
+                    header, *body = block.table.rows
+                    article.append(
+                        "<table><thead><tr>"
+                        + "".join(
+                            f"<th>{_table_cell(cell.lines)}</th>"
+                            for cell in header.cells
+                        )
+                        + "</tr></thead>"
+                    )
+                    article.append("<tbody>")
+                    article.extend(
+                        "<tr>"
+                        + "".join(
+                            f"<td>{_table_cell(cell.lines)}</td>"
+                            for cell in row.cells
+                        )
+                        + "</tr>"
+                        for row in body
+                    )
+                    article.append("</tbody></table>")
             elif block.kind == "image":
+                image_sequence += 1
                 path = escape(image_paths[block.text], quote=True)
+                alt = escape(
+                    f"笔记图片 {image_sequence}：{image_context}", quote=True
+                )
                 article.append(
-                    f'<img src="{path}" alt="Spring notes illustration" loading="lazy">'
+                    f'<img src="{path}" alt="{alt}" loading="lazy">'
                 )
 
         if list_open:

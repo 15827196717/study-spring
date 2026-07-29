@@ -8,11 +8,11 @@
 
 - XML配置文件。 spring诞生
 
-- spring.xml <bean>
+- spring.xml &lt;bean&gt;
 
 - 基于注解的配置。 Spring2.5+
 
-- spring.xml <component-scan base-package=" "/> @Component @Autowired
+- spring.xml &lt;component-scan base-package=" "/&gt; @Component @Autowired
 
 - 基于java的配置。 JavaConfig Spring3.0+
 
@@ -38,15 +38,15 @@
 
 - Spring.xml
 
-- <bean scope lazy>
+- &lt;bean scope lazy&gt;
 
-- 扫描包: <component-scan>
+- 扫描包: &lt;component-scan&gt;
 
-- 引入外部属性配置文件 <property-placeHodeler resource="xxx.properties">
+- 引入外部属性配置文件 &lt;property-placeHodeler resource="xxx.properties"&gt;
 
-- <property name="password" value="${mysql.password}"></property>
+- &lt;property name="password" value="${mysql.password}"&gt;&lt;/property&gt;
 
-- 指定其他配置文件：<import resource=""
+- 指定其他配置文件：&lt;import resource=""
 
 - javaconfig
 
@@ -66,7 +66,7 @@
 
 源码：
 
-![笔记图片 16](../assets/images/note-016.png)
+![笔记图片 16：34.用过JavaConfig方式的spring配置吗？它是如何替代xml的？](../assets/images/note-016.png)
 
 ## 35.@Component, @Controller, @Repository, @Service 有何区别？
 
@@ -102,7 +102,7 @@
 
 ## 38.如何让自动注入找到多个依赖Bean时不报错
 
-![笔记图片 17](../assets/images/note-017.png)
+![笔记图片 17：38.如何让自动注入找到多个依赖Bean时不报错](../assets/images/note-017.png)
 
 39.@Autowired 注解有什么作用
 
@@ -138,11 +138,11 @@
 
 - 如果上述查找的结果为空，那么会抛出异常。解决方法时，使用required=false。
 
-![笔记图片 18](../assets/images/note-018.png)
+![笔记图片 18：41.使用@Autowired注解自动装配的过程是怎样的？](../assets/images/note-018.png)
 
 ## 42.配置类@Configuration的作用解析原理:
 
-1.@Configuration用来代替xml配置方式spring.xml配置文件 <bean>
+1.@Configuration用来代替xml配置方式spring.xml配置文件 &lt;bean&gt;
 
 2. 没有@Configuration也是可以配置@Bean
 
@@ -170,7 +170,7 @@
 
 ## 44.要将一个第三方的类配成为Bean有哪些方式？
 
-- 1. @Bean
+[1. @Bean](mailto:1.@Bean)
 
 2. @Import
 

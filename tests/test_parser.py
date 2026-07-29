@@ -1,10 +1,12 @@
 from pathlib import Path
 import unittest
 
+from tools.note_converter.model import Link, Table, TableCell, TableRow
 from tools.note_converter.parser import SECTION_FILES, parse_snapshot, question_titles
 
 
 FIXTURE = Path(__file__).parent / "fixtures" / "minimal_snapshot.txt"
+STRUCTURED_FIXTURE = Path(__file__).parent / "fixtures" / "structured_snapshot.txt"
 
 
 def full_like_snapshot(toc_titles: list[str], body_titles: list[str]) -> str:
@@ -81,6 +83,51 @@ class ParserTests(unittest.TestCase):
             if block.kind == "image"
         ]
         self.assertEqual(["http://images.example.test/note.png"], images)
+
+    def test_preserves_link_label_and_url_from_the_accessibility_subtree(self):
+        note = parse_snapshot(STRUCTURED_FIXTURE.read_text(encoding="utf-8"))
+
+        link_blocks = [
+            block
+            for section in note.sections
+            for block in section.blocks
+            if block.kind == "link"
+        ]
+
+        self.assertEqual(
+            [
+                Link(
+                    "Spring 版本说明",
+                    "https://github.com/spring-projects/spring-framework/releases/tag/v5.2.7.RELEASE",
+                )
+            ],
+            [block.link for block in link_blocks],
+        )
+
+    def test_preserves_table_rows_empty_cells_and_multiline_cells(self):
+        note = parse_snapshot(STRUCTURED_FIXTURE.read_text(encoding="utf-8"))
+
+        table_blocks = [
+            block
+            for section in note.sections
+            for block in section.blocks
+            if block.kind == "table"
+        ]
+
+        self.assertEqual(
+            Table(
+                (
+                    TableRow((TableCell(("事务一",)), TableCell(("事务二",)))),
+                    TableRow(
+                        (
+                            TableCell(()),
+                            TableCell(("update t_user", "set balance=800")),
+                        )
+                    ),
+                )
+            ),
+            table_blocks[0].table,
+        )
 
     def test_rejects_duplicate_detailed_sections_in_a_full_snapshot(self):
         titles = [title for title, _ in SECTION_FILES]

@@ -78,7 +78,7 @@
 
 3、演进式拆分：刚开始不要划分太细，可以随着迭代过程来逐步优化。
 
-![笔记图片 45](../assets/images/note-045.png)
+![笔记图片 45：90.怎么拆分微服务、拆分时机是什么？](../assets/images/note-045.png)
 
 微服务 1.0，仅使用注册发现，基于 SpringCloud 或者 Dubbo 进行开发，目前意图实施微服务的传统企业大部分处于这个阶段，或者正从单体应用，向这个阶段过渡，处于 0.5 的阶段；
 
@@ -98,7 +98,7 @@
 
 ## 91.Spring Cloud有哪些常用组件，作用是什么？
 
-![笔记图片 46](../assets/images/note-046.png)
+![笔记图片 46：91.Spring Cloud有哪些常用组件，作用是什么？](../assets/images/note-046.png)
 
 - 注册中心：管理服务
 
@@ -118,7 +118,7 @@
 
 ## 92.注册中心的原理是什么？
 
-![笔记图片 47](../assets/images/note-047.png)
+![笔记图片 47：92.注册中心的原理是什么？](../assets/images/note-047.png)
 
 服务注册： 当服务启动 通过Rest请求的方式向Nacos Server注册自己的服务
 
@@ -130,7 +130,7 @@
 
 ## 93.谈谈配置中心？
 
-![笔记图片 48](../assets/images/note-048.jpg)
+![笔记图片 48：93.谈谈配置中心？](../assets/images/note-048.jpg)
 
 集中管理服务的配置、提高维护性、时效性、安全性
 
@@ -150,7 +150,7 @@
 
 那到底是推还是拉呢，从 Nacos 客户端通过 Listener 来接收最新数据进行分析
 
-![笔记图片 49](../assets/images/note-049.png)
+![笔记图片 49：93.谈谈配置中心？](../assets/images/note-049.png)
 
 原理：
 
@@ -164,7 +164,7 @@ Nacos 服务端创建了相关的配置项后，客户端就可以进行监听�
 
 ## 94.说说服务网关可以做什么？
 
-![笔记图片 50](../assets/images/note-050.png)
+![笔记图片 50：94.说说服务网关可以做什么？](../assets/images/note-050.png)
 
 - 面对互联网复杂的业务系统，基本可以将服务网关分成两类：流量网关和业务网关。
 
@@ -174,7 +174,7 @@ Nacos 服务端创建了相关的配置项后，客户端就可以进行监听�
 
 ## 95.什么是服务雪崩？什么是服务限流？
 
-![笔记图片 51](../assets/images/note-051.png)
+![笔记图片 51：95.什么是服务雪崩？什么是服务限流？](../assets/images/note-051.png)
 
 服务雪崩效应： 因服务提供者的不可用导致服务调用者的不可用,并将不可用逐渐放大的过程，就叫服务雪崩效应
 
@@ -184,7 +184,7 @@ Nacos 服务端创建了相关的配置项后，客户端就可以进行监听�
 
 - 通过线程池和消息队列机制实现异步化，允许服务快速失败，当一个服务因为过慢而阻塞，被影响服务可以在超时后快速失败，不会影响整个调用链路。
 
-![笔记图片 52](../assets/images/note-052.jpg)
+![笔记图片 52：95.什么是服务雪崩？什么是服务限流？](../assets/images/note-052.jpg)
 
 服务限流
 
@@ -234,7 +234,7 @@ AT(Auto Transaction)模式
 
 - TM 向 TC 发起针对 XID 的全局提交或回滚决议。将本地事务提交的结果上报给 TC
 
-![笔记图片 53](../assets/images/note-053.png)
+![笔记图片 53：97.说说Seata的实现原理？](../assets/images/note-053.png)
 
 二阶段-提交
 
@@ -244,7 +244,7 @@ AT(Auto Transaction)模式
 
 - 异步任务阶段的分支:提交请求,将异步和批量地删除相应 UNDO LOG 记录。
 
-![笔记图片 54](../assets/images/note-054.png)
+![笔记图片 54：97.说说Seata的实现原理？](../assets/images/note-054.png)
 
 二阶段-回滚
 
@@ -260,41 +260,41 @@ AT(Auto Transaction)模式
 
 - 提交本地事务。并把本地事务的执行结果（即分支事务回滚的结果）上报给 TC。
 
-![笔记图片 55](../assets/images/note-055.png)
+![笔记图片 55：97.说说Seata的实现原理？](../assets/images/note-055.png)
 
 ## 98.你的微服务项目出了异常怎样更快速的定位？
 
-![笔记图片 56](../assets/images/note-056.png)
+![笔记图片 56：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-056.png)
 
 介绍
 
 - 页面
 
-![笔记图片 57](../assets/images/note-057.png)
+![笔记图片 57：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-057.png)
 
 - 报错通知
 
 - DB
 
-![笔记图片 58](../assets/images/note-058.png)
+![笔记图片 58：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-058.png)
 
-![笔记图片 59](../assets/images/note-059.png)
+![笔记图片 59：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-059.png)
 
 - Hystrix
 
-![笔记图片 60](../assets/images/note-060.png)
+![笔记图片 60：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-060.png)
 
 问题排查
 
 - hystrix
 
-![笔记图片 61](../assets/images/note-061.png)
+![笔记图片 61：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-061.png)
 
-![笔记图片 62](../assets/images/note-062.png)
+![笔记图片 62：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-062.png)
 
 - 日志
 
-![笔记图片 63](../assets/images/note-063.png)
+![笔记图片 63：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-063.png)
 
 动态日志级别调整
 
@@ -312,7 +312,7 @@ AT(Auto Transaction)模式
 
 - 单节点调整，不会影响其他节点。
 
-![笔记图片 64](../assets/images/note-064.png)
+![笔记图片 64：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-064.png)
 
 历史状态日志
 
@@ -326,7 +326,7 @@ AT(Auto Transaction)模式
 
 - 状态变化时间点
 
-![笔记图片 65](../assets/images/note-065.png)
+![笔记图片 65：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-065.png)
 
 实际案例
 
@@ -348,13 +348,13 @@ AT(Auto Transaction)模式
 
 - 直接访问该微服务的异常节点查看相关日志。
 
-![笔记图片 66](../assets/images/note-066.png)
+![笔记图片 66：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-066.png)
 
-![笔记图片 67](../assets/images/note-067.png)
+![笔记图片 67：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-067.png)
 
 低版本问题
 
-![笔记图片 68](../assets/images/note-068.png)
+![笔记图片 68：98.你的微服务项目出了异常怎样更快速的定位？](../assets/images/note-068.png)
 
 - 低版本的配置中心会每次检查都会访问一次配置中心数据
 
@@ -368,7 +368,7 @@ AT(Auto Transaction)模式
 
 ## 99.Ribbon说说有哪些负载均衡策略
 
-![笔记图片 69](../assets/images/note-069.png)
+![笔记图片 69：99.Ribbon说说有哪些负载均衡策略](../assets/images/note-069.png)
 
 IRule
 

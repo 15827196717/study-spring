@@ -54,7 +54,7 @@ ISO8859-1是tomcat默认编码，需要将tomcat编码后的内容按utf-8编码
 
 （11）DispatcherServlet响应用户。
 
-![笔记图片 31](../assets/images/note-031.png)
+![笔记图片 31：69.请描述Spring MVC的工作流程？描述一下 DispatcherServlet 的工作流程？](../assets/images/note-031.png)
 
 ## 70.SpringMvc怎么和AJAX相互调用的？
 
@@ -68,7 +68,7 @@ ISO8859-1是tomcat默认编码，需要将tomcat编码后的内容按utf-8编码
 
 （3）在接受Ajax方法里面可以直接返回Object,List等,但方法前面要加上@ResponseBody注解。
 
-![笔记图片 32](../assets/images/note-032.png)
+![笔记图片 32：70.SpringMvc怎么和AJAX相互调用的？](../assets/images/note-032.png)
 
 springMVC对数据Message的处理操作提供了一个接口HttpMessageConverter，用来对参数值和返回值的转换处理。在请求和返回过程中可以进行转换json
 
@@ -88,7 +88,7 @@ springMVC对数据Message的处理操作提供了一个接口HttpMessageConverte
 
 也就无法根据请求URI 获取到 HandlerMethod来进行匹配.
 
-![笔记图片 33](../assets/images/note-033.png)
+![笔记图片 33：72.是否可以把所有Bean都通过Spring容器来管理？（Spring的applicationContext.xml中配置全局扫描)](../assets/images/note-033.png)
 
 ## 73.是否可以把我们所需的Bean都放入Spring-mvc子容器里面来管理（springmvc的spring-servlet.xml中配置全局扫描）?
 
@@ -124,9 +124,9 @@ springMVC对数据Message的处理操作提供了一个接口HttpMessageConverte
 
 执行顺序：
 
-![笔记图片 34](../assets/images/note-034.png)
+![笔记图片 34：75.SpringMVC的拦截器和过滤器有什么区别？执行顺序？](../assets/images/note-034.png)
 
-![笔记图片 35](../assets/images/note-035.png)
+![笔记图片 35：75.SpringMVC的拦截器和过滤器有什么区别？执行顺序？](../assets/images/note-035.png)
 
 多个过滤器的执行顺序跟xml文件中定义的先后关系有关
 

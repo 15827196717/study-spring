@@ -24,7 +24,7 @@ AOP、OOP在字面上虽然非常类似，但却是面向不同领域的两种�
 
 （6）织入（Weaving） ： spring aop用的织入方式：动态代理。 就是为目标对象创建动态代理的过程就叫织入。
 
-![笔记图片 19](../assets/images/note-019.png)
+![笔记图片 19：47.解释一下Spring AOP里面的几个名词](../assets/images/note-019.png)
 
 ## 48.Spring通知有哪些类型？
 
@@ -44,23 +44,23 @@ Spring切面可以应用5种类型的通知：
 
 执行顺序：
 
-![笔记图片 20](../assets/images/note-020.png)
+![笔记图片 20：48.Spring通知有哪些类型？](../assets/images/note-020.png)
 
 Spring在5.2.7之后就改变的advice 的执行顺序。 在github官网版本更新说明中有说明：如图
 
-1、正常执行：@Before--->方法---->@AfterReturning--->@After
+1、正常执行：@Before---&gt;方法----&gt;@AfterReturning---&gt;@After
 
-2、异常执行：@Before--->方法---->@AfterThrowing--->@After
+2、异常执行：@Before---&gt;方法----&gt;@AfterThrowing---&gt;@After
 
-![笔记图片 21](../assets/images/note-021.png)
+![笔记图片 21：48.Spring通知有哪些类型？](../assets/images/note-021.png)
 
 更新说明：
 
-- https://github.com/spring-projects/spring-framewor...
+[https://github.com/spring-projects/spring-framewor...](https://github.com/spring-projects/spring-framework/releases/tag/v5.2.7.RELEASE)
 
 #25186链接：
 
-- https://github.com/spring-projects/spring-framewor...
+[https://github.com/spring-projects/spring-framewor...](https://github.com/spring-projects/spring-framework/issues/25186)
 
 ## 49.Spring AOP and AspectJ AOP 有什么区别？
 
@@ -92,7 +92,7 @@ AOP实现的关键在于 代理模式，AOP代理主要分为静态代理和动�
 
 - AspectJ 出身也是名门，来自于 Eclipse 基金会，link：
 
-- https://www.eclipse.org/aspectj
+- [https://www.eclipse.org/aspectj](https://www.eclipse.org/aspectj)
 
 - AspectJ 能干很多 Spring AOP 干不了的事情，它是 AOP 编程的完全解决方案。Spring AOP 致力于解决的是企业级开发中最普遍的 AOP 需求（方法织入），而不是力求成为一个像 AspectJ 一样的 AOP 编程完全解决方案。
 
@@ -138,15 +138,15 @@ Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动�
 
 - Spring 1.2 基于接口的配置：最早的 Spring AOP 是完全基于几个接口的，想看源码的同学可以从这里起步。
 
-- Spring 2.0 schema-based 配置：Spring 2.0 以后使用 XML 的方式来配置，使用 命名空间 <aop ></aop>
+- Spring 2.0 schema-based 配置：Spring 2.0 以后使用 XML 的方式来配置，使用 命名空间 &lt;aop &gt;&lt;/aop&gt;
 
 - Spring 2.0
 
-- @AspectJ
+- [@AspectJ](https://github.com/AspectJ)
 
 - 配置：使用注解的方式来配置，这种方式感觉是最方便的，还有，这里虽然叫做
 
-- @AspectJ
+- [@AspectJ](https://github.com/AspectJ)
 
 - ，但是这个和 AspectJ 其实没啥关系。
 
@@ -182,7 +182,7 @@ Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动�
 
 - 还有一种特殊情况： 循环依赖的Bean会在Bean的生命周期‘属性注入’时存在的循环依赖的情况下， 也会为循环依赖的Bean通过SmartInstantiationAwareBeanPostProcessor.getEarlyBeanReference创建aop
 
-![笔记图片 22](../assets/images/note-022.png)
+![笔记图片 22：54.Spring的AOP是在哪里创建的动态代理？](../assets/images/note-022.png)
 
 ## 55.Spring的 Aop的完整实现流程？
 
@@ -196,6 +196,6 @@ Aop的实现大致分为三大步：JavaConfig
 
 3.调用：拿到动态代理对象， 调用方法 就会判断当前方法是否增强的方法， 就会通过调用链的方式依次去执行通知.
 
-![笔记图片 23](../assets/images/note-023.png)
+![笔记图片 23：55.Spring的 Aop的完整实现流程？](../assets/images/note-023.png)
 
 [上一章](04-spring-annotations.md) · [返回首页](../README.md) · [下一章](06-spring-transactions.md)

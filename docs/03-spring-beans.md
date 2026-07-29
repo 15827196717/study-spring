@@ -20,9 +20,9 @@ In Spring, the objects that form the backbone of your application and that are m
 
 ## 14.配置Bean有哪几种方式？
 
-1.xml: <bean class="com.tuling.UserService" id="">
+1.xml: &lt;bean class="com.tuling.UserService" id=""&gt;
 
-2.注解：@Component(@Controller 、@Service、@Repostory) 前提：需要配置扫描包<component-scan> 反射调用构造方法
+2.注解：@Component(@Controller 、@Service、@Repostory) 前提：需要配置扫描包&lt;component-scan&gt; 反射调用构造方法
 
 3.javaConfig: @Bean 可以自己控制实例化过程
 
@@ -100,9 +100,9 @@ ThreadLocal会为每一个线程提供一个独立的变量副本，从而隔离
 
 - 一定要声明set方法
 
-- 覆盖： 你仍可以用 < constructor-arg >和 < property > 配置来定义依赖，这些配置将始终覆盖自动注入。
+- 覆盖： 你仍可以用 &lt; constructor-arg &gt;和 &lt; property &gt; 配置来定义依赖，这些配置将始终覆盖自动注入。
 
-- 基本数据类型：不能自动装配简单的属性，如基本数据类型、字符串和类。 (手动注入还是可以注入基本数据类型的 <property value="" @Value)
+- 基本数据类型：不能自动装配简单的属性，如基本数据类型、字符串和类。 (手动注入还是可以注入基本数据类型的 &lt;property value="" @Value)
 
 - 模糊特性：自动装配不如显式装配精确，如果有可能尽量使用显示装配。
 
@@ -132,7 +132,7 @@ bean 标签有两个重要的属性（init-method和destroy-method）。用它�
 
 ## 20.Spring 在加载过程中Bean有哪几种形态：
 
-![笔记图片 8](../assets/images/note-008.png)
+![笔记图片 8：20.Spring 在加载过程中Bean有哪几种形态：](../assets/images/note-008.png)
 
 ## 25. 解释Spring框架中bean的生命周期
 
@@ -166,7 +166,7 @@ Bean生命周期：指定的就是Bean从创建到销毁的整个过程: 分4大
 
 下图展示了bean装载到Spring应用上下文中的一个典型的生命周期过程。
 
-![笔记图片 9](../assets/images/note-009.png)
+![笔记图片 9：25. 解释Spring框架中bean的生命周期](../assets/images/note-009.png)
 
 bean在Spring容器中从创建到销毁经历了若干阶段，每一阶段都可以针对Spring如何管理bean进行个性化定制。
 
@@ -214,7 +214,7 @@ Spring是如何解决的循环依赖： 采用三级缓存解决的 就是三个
 
 - 放入二级缓存（避免重复创建）
 
-![笔记图片 10](../assets/images/note-010.png)
+![笔记图片 10：26、Spring是如何解决Bean的循环依赖？](../assets/images/note-010.png)
 
 夺命连环问：
 
@@ -248,7 +248,7 @@ Spring是如何解决的循环依赖： 采用三级缓存解决的 就是三个
 
 - 性能：避免已经创建好的Bean阻塞等待
 
-![笔记图片 11](../assets/images/note-011.png)
+![笔记图片 11：27.Spring如何避免在并发下获取不完整的Bean?](../assets/images/note-011.png)
 
 ## 28.BeanDefinition的加载过程：
 
@@ -274,7 +274,7 @@ BeanDefinition的加载过程就是将 概念态的Bean注册为定义态的Bean
 
 ## 30.如何在Spring所有Bean创建完后做扩展？
 
-哪里才算所有的Bean创建完： new ApplicationContext()---->refresh()---->finishBeanFactoryInitialization（循环所有的BeanDefinition ,通过BeanFactory.getBean()生成所有的Bean） 这个循环结束之后所有的bean也就创建完了
+哪里才算所有的Bean创建完： new ApplicationContext()----&gt;refresh()----&gt;finishBeanFactoryInitialization（循环所有的BeanDefinition ,通过BeanFactory.getBean()生成所有的Bean） 这个循环结束之后所有的bean也就创建完了
 
 ## 31、Spring容器启动时，为什么先加载BeanFactoryPostProcess
 
@@ -294,7 +294,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 SmartInitializingSingleton接口是在所有的Bean实例化完成以后，Spring回调的方法, 所以这里也是一个扩展点，可以在单例bean全部完成实例化以后做处理。
 
-![笔记图片 12](../assets/images/note-012.png)
+![笔记图片 12：31、Spring容器启动时，为什么先加载BeanFactoryPostProcess](../assets/images/note-012.png)
 
 Code
 
@@ -322,7 +322,7 @@ Source
 
 生命周期的最后一步是finishRefresh();，这里面中有一个方法是publishEvent
 
-![笔记图片 13](../assets/images/note-013.png)
+![笔记图片 13：31、Spring容器启动时，为什么先加载BeanFactoryPostProcess](../assets/images/note-013.png)
 
 所以这里也可以进行扩展，监听ContextRefreshedEvent事件 。
 
@@ -334,7 +334,7 @@ BeanDefinition的注册顺序由什么来决定的？
 
 主要是由注解（配置）的解析顺序来决定：
 
-![笔记图片 14](../assets/images/note-014.png)
+![笔记图片 14：32. Bean的创建顺序是什么样的？](../assets/images/note-014.png)
 
 - @Configuration
 
@@ -346,7 +346,7 @@ BeanDefinition的注册顺序由什么来决定的？
 
 - @Import—ImportBeanDefinitionRegistrar
 
-![笔记图片 15](../assets/images/note-015.png)
+![笔记图片 15：32. Bean的创建顺序是什么样的？](../assets/images/note-015.png)
 
 6、BeanDefinitionRegistryPostProcessor
 

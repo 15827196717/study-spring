@@ -1,15 +1,15 @@
 {
   "section_titles": [
-    "涓€銆丼pring Framework",
-    "浜屻€丼pring IOC",
-    "涓夈€丼pring Beans",
-    "鍥涖€丼pring娉ㄨВ",
-    "浜斻€丼pring AOP",
-    "鍏€丼pring浜嬪姟",
-    "涓冦€丼pring鍏朵粬",
-    "鍏€丼pringMVC",
-    "涔濄€丼pring Boot",
-    "鍗併€佸井鏈嶅姟"
+    "一、Spring Framework",
+    "二、Spring IOC",
+    "三、Spring Beans",
+    "四、Spring注解",
+    "五、Spring AOP",
+    "六、Spring事务",
+    "七、Spring其他",
+    "八、SpringMVC",
+    "九、Spring Boot",
+    "十、微服务"
   ],
   "chapter_files": [
     "docs/01-spring-framework.md",

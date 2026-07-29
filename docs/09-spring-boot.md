@@ -60,7 +60,7 @@ SpringBoot 它不是一个框架、它是一个可以快速构建基于Spring的
 
 7.最后通过@ConditioOnXXX排除无效的自动配置类
 
-![笔记图片 36](../assets/images/note-036.png)
+![笔记图片 36：79.springboot的自动配置原理？](../assets/images/note-036.png)
 
 ## 80.为什么SpringBoot的jar可以直接运行？
 
@@ -76,7 +76,7 @@ SpringBoot 它不是一个框架、它是一个可以快速构建基于Spring的
 
 1.运行main方法： 初始化new SpringApplication 从spring.factories 读取 listener ApplicationContextInitializer 。
 
-![笔记图片 37](../assets/images/note-037.png)
+![笔记图片 37：81.SpringBoot的启动原理？](../assets/images/note-037.png)
 
 2.运行run方法
 
@@ -84,7 +84,7 @@ SpringBoot 它不是一个框架、它是一个可以快速构建基于Spring的
 
 4. 创建springApplication上下文:ServletWebServerApplicationContext
 
-5. 预初始化上下文 ： 将启动类作为配置类进行读取-->将配置注册为BeanDefinition
+5. 预初始化上下文 ： 将启动类作为配置类进行读取--&gt;将配置注册为BeanDefinition
 
 6.调用refresh 加载ioc容器
 
@@ -94,7 +94,7 @@ onRefresh 创建(内置)servlet容器
 
 7.在这个过程中springboot会调用很多监听器对外进行扩展
 
-![笔记图片 38](../assets/images/note-038.png)
+![笔记图片 38：81.SpringBoot的启动原理？](../assets/images/note-038.png)
 
 ## 82.SpringBoot内置Tomcat启动原理？
 
@@ -106,7 +106,7 @@ onRefresh 创建(内置)servlet容器
 
 - 它会在SpringBoot启动时 加载ioc容器(refresh) OnRefersh 创建内嵌的Tomcat并启动
 
-![笔记图片 39](../assets/images/note-039.png)
+![笔记图片 39：82.SpringBoot内置Tomcat启动原理？](../assets/images/note-039.png)
 
 ## 83.SpringBoot外置Tomcat启动原理？
 
@@ -116,7 +116,7 @@ public classTomcatStartSpringBootextendsSpringBootServletInitializer{ @Override 
 
 servlet3.0 规范官方文档： 8.2.4
 
-![笔记图片 40](../assets/images/note-040.png)
+![笔记图片 40：83.SpringBoot外置Tomcat启动原理？](../assets/images/note-040.png)
 
 大概： 当servlet容器启动时候 就会去META-INF/services 文件夹中找到javax.servlet.ServletContainerInitializer, 这个文件里面肯定绑定一个ServletContainerInitializer. 当servlet容器启动时候就会去该文件中找到ServletContainerInitializer的实现类，从而创建它的实例调用onstartUp
 
@@ -126,13 +126,13 @@ servlet3.0 规范官方文档： 8.2.4
 
 - 容器会自动在classpath中找到 WebApplicationInitializer 会传入到onStartup方法的webAppInitializerClasses中
 
-- Set<Class<?>> webAppInitializerClasses 这里面也包括之前定义的TomcatStartSpringBoot
+- Set&lt;Class&lt;?&gt;&gt; webAppInitializerClasses 这里面也包括之前定义的TomcatStartSpringBoot
 
 ```
 @HandlesTypes(WebApplicationInitializer.class)public classSpringServletContainerInitializerimplementsServletContainerInitializer{@Overridepublic void onStartup(@NullableSet<Class<?>>webAppInitializerClasses,ServletContext servletContext) throwsServletException{List<WebApplicationInitializer>initializers= newLinkedList<>(); if (webAppInitializerClasses!=null) { for (Class<?>waiClass:webAppInitializerClasses) { // 如果不是接口 不是抽象 跟WebApplicationInitializer有关系 就会实例化 if (!waiClass.isInterface() && !Modifier.isAbstract(waiClass.getModifiers()) &&WebApplicationInitializer.class.isAssignableFrom(waiClass)) { try {initializers.add((WebApplicationInitializer)ReflectionUtils.accessibleConstructor(waiClass).newInstance()); } catch (Throwable ex) { throw newServletException("Failed to instantiate WebApplicationInitializer class",ex); } } } } if (initializers.isEmpty()) {servletContext.log("No Spring WebApplicationInitializer types detected on classpath"); return; }servletContext.log(initializers.size() + " Spring WebApplicationInitializers detected on classpath"); // 排序AnnotationAwareOrderComparator.sort(initializers); for (WebApplicationInitializer initializer:initializers) {initializer.onStartup(servletContext); }}
 ```
 
-![笔记图片 41](../assets/images/note-041.png)
+![笔记图片 41：83.SpringBoot外置Tomcat启动原理？](../assets/images/note-041.png)
 
 ```
 @Overridepublic void onStartup(ServletContext servletContext) throwsServletException{ // Logger initialization is deferred in case an ordered // LogServletContextInitializer is being used this.logger=LogFactory.getLog(getClass());WebApplicationContext rootApplicationContext= createRootApplicationContext(servletContext); if (rootApplicationContext!=null) {servletContext.addListener(newSpringBootContextLoaderListener(rootApplicationContext,servletContext)); } else { this.logger.debug("No ContextLoaderListener registered, as createRootApplicationContext() did not " + "return an application context"); }}
@@ -196,7 +196,7 @@ packagecom.starter.tulingxueyuan;importorg.springframework.beans.factory.annotat
 
 在 resources 下创建文件夹 META-INF 并在 META-INF 下创建文件 spring.factories ，内容如下：
 
-![笔记图片 42](../assets/images/note-042.png)
+![笔记图片 42：84.会不会SpringBoot自定义Starter？大概实现过程？](../assets/images/note-042.png)
 
 ```
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.starter.tulingxueyuan.HelloAutoConfitguration
@@ -204,7 +204,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.starter.tuli
 
 到这儿，我们的配置自定义的starter就写完了 ，我们hello-spring-boot-starter-autoconfigurer、hello-spring-boot-starter 安装成本地jar包。
 
-![笔记图片 43](../assets/images/note-043.png)
+![笔记图片 43：84.会不会SpringBoot自定义Starter？大概实现过程？](../assets/images/note-043.png)
 
 ## 85.SpringBoot读取配置文件的原理是什么？加载顺序是怎样的?
 
@@ -218,7 +218,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\com.starter.tuli
 
 ## 86.SpringBoot的默认日志实现框架是什么？怎么切换成别的？
 
-![笔记图片 44](../assets/images/note-044.png)
+![笔记图片 44：86.SpringBoot的默认日志实现框架是什么？怎么切换成别的？](../assets/images/note-044.png)
 
 总结：
 

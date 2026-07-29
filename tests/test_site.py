@@ -2,7 +2,15 @@ from pathlib import Path
 import re
 import unittest
 
-from tools.note_converter.model import Block, Note, Section
+from tools.note_converter.model import (
+    Block,
+    Link,
+    Note,
+    Section,
+    Table,
+    TableCell,
+    TableRow,
+)
 from tools.note_converter.site import render_site
 
 
@@ -72,6 +80,86 @@ class SiteTests(unittest.TestCase):
 
         self.assertIn('id="q-1-1"', html)
         self.assertIn('id="q-1-2"', html)
+
+    def test_renders_content_links_semantic_tables_and_literal_xml(self):
+        note = Note(
+            "Spring Notes",
+            ("1. Question one",),
+            (
+                Section(
+                    "01-one",
+                    "One",
+                    (
+                        Block("paragraph", "1. Question one"),
+                        Block("paragraph", "XML: <bean> & <context>"),
+                        Block(
+                            "link",
+                            link=Link(
+                                "Spring releases",
+                                "https://github.com/spring-projects/spring-framework/releases",
+                            ),
+                        ),
+                        Block(
+                            "table",
+                            table=Table(
+                                (
+                                    TableRow(
+                                        (TableCell(("事务一",)), TableCell(("事务二",)))
+                                    ),
+                                    TableRow(
+                                        (
+                                            TableCell(()),
+                                            TableCell(("update t_user", "commit")),
+                                        )
+                                    ),
+                                )
+                            ),
+                        ),
+                        Block("image", "https://source.invalid/1"),
+                    ),
+                ),
+            ),
+        )
+
+        html = render_site(
+            note, {"https://source.invalid/1": "assets/images/note-001.png"}
+        )
+
+        self.assertIn("<p>XML: &lt;bean&gt; &amp; &lt;context&gt;</p>", html)
+        self.assertIn(
+            '<a href="https://github.com/spring-projects/spring-framework/releases">'
+            "Spring releases</a>",
+            html,
+        )
+        self.assertIn("<table><thead><tr><th>事务一</th><th>事务二</th>", html)
+        self.assertIn("<tbody><tr><td></td><td>update t_user<br>commit</td>", html)
+        self.assertIn('alt="笔记图片 1：1. Question one"', html)
+
+    def test_keeps_a_bullet_link_inside_a_semantic_list(self):
+        note = Note(
+            "Spring Notes",
+            (),
+            (
+                Section(
+                    "01-one",
+                    "One",
+                    (
+                        Block(
+                            "link",
+                            link=Link("@AspectJ", "https://github.com/AspectJ"),
+                            is_bullet=True,
+                        ),
+                    ),
+                ),
+            ),
+        )
+
+        html = render_site(note, {})
+
+        self.assertIn(
+            '<ul><li><a href="https://github.com/AspectJ">@AspectJ</a></li></ul>',
+            html,
+        )
 
     def test_active_toc_contract_covers_hash_scroll_and_page_bottom(self):
         script = (SITE_DIR / "app.js").read_text(encoding="utf-8")

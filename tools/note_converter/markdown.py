@@ -1,4 +1,21 @@
+from html import escape
+
 from .model import Note
+
+
+def _markdown_text(text: str) -> str:
+    return escape(text, quote=False)
+
+
+def _markdown_label(text: str) -> str:
+    return _markdown_text(text).replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]")
+
+
+def _table_cell(lines: tuple[str, ...]) -> str:
+    return "<br>".join(
+        _markdown_text(line).replace("\\", "\\\\").replace("|", "\\|")
+        for line in lines
+    )
 
 
 def render_chapters(note: Note, image_paths: dict[str, str]) -> dict[str, str]:
@@ -9,19 +26,51 @@ def render_chapters(note: Note, image_paths: dict[str, str]) -> dict[str, str]:
 
     for index, section in enumerate(note.sections):
         lines = [f"# {section.title}", "", "[返回首页](../README.md)", ""]
+        image_context = section.title
         for block in section.blocks:
             if block.kind == "paragraph" and block.text in questions:
-                lines.extend((f"## {block.text}", ""))
+                image_context = block.text
+                lines.extend((f"## {_markdown_text(block.text)}", ""))
             elif block.kind == "paragraph":
-                lines.extend((block.text, ""))
+                lines.extend((_markdown_text(block.text), ""))
             elif block.kind == "bullet":
-                lines.extend((f"- {block.text}", ""))
+                lines.extend((f"- {_markdown_text(block.text)}", ""))
             elif block.kind == "code":
                 lines.extend(("```", block.text, "```", ""))
+            elif block.kind == "link":
+                if block.link is None:
+                    raise ValueError("link block is missing link data")
+                prefix = "- " if block.is_bullet else ""
+                lines.extend(
+                    (
+                        f"{prefix}[{_markdown_label(block.link.label)}]"
+                        f"({block.link.url})",
+                        "",
+                    )
+                )
+            elif block.kind == "table":
+                if block.table is None:
+                    raise ValueError("table block is missing table data")
+                if block.table.rows:
+                    header, *body = block.table.rows
+                    lines.append(
+                        "| " + " | ".join(_table_cell(cell.lines) for cell in header.cells) + " |"
+                    )
+                    lines.append("| " + " | ".join("---" for _ in header.cells) + " |")
+                    lines.extend(
+                        "| "
+                        + " | ".join(_table_cell(cell.lines) for cell in row.cells)
+                        + " |"
+                        for row in body
+                    )
+                    lines.append("")
             elif block.kind == "image":
                 image_number += 1
                 path = image_paths[block.text]
-                lines.extend((f"![笔记图片 {image_number}](../{path})", ""))
+                alt = _markdown_label(
+                    f"笔记图片 {image_number}：{image_context}"
+                )
+                lines.extend((f"![{alt}](../{path})", ""))
 
         previous_link = (
             f"[上一章]({note.sections[index - 1].slug}.md)" if index else ""

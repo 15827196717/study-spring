@@ -44,7 +44,7 @@ Spring支持两种类型的事务管理：
 
 - 基于 TransactionProxyFactoryBean 的声明式事务: 第一种方式的改进版本，简化的配置文件的书写，这是 Spring 早期推荐的声明式事务管理方式，但是在 Spring 2.0 中已经不推荐了。
 
-- 基于< tx> 和< aop>命名空间的声明式事务管理： 目前推荐的方式，其最大特点是与 Spring AOP 结合紧密，可以充分利用切点表达式的强大支持，使得管理事务更加灵活。
+- 基于&lt; tx&gt; 和&lt; aop&gt;命名空间的声明式事务管理： 目前推荐的方式，其最大特点是与 Spring AOP 结合紧密，可以充分利用切点表达式的强大支持，使得管理事务更加灵活。
 
 - 基于 @Transactional 的全注解方式： 将声明式事务管理简化到了极致。开发人员只需在配置文件中加上一行启用相关后处理 Bean 的配置，然后在需要实施事务管理的方法或者类上使用 @Transactional 指定事务规则即可实现事务管理，而且功能也不必其他方式逊色。
 
@@ -56,83 +56,15 @@ Spring支持两种类型的事务管理：
 @Transactionalpublic void trans(){ sub(); log(); // 记录流水 数据库操作 query();} @Transactional(SUPPORTS)publicinfoquery(){ ....}@Transactional REQUIRES_NEWpublic void log(){ // todo: 记录日志}
 ```
 
-- 事务传播行为类型
-
-- 外部不存在事务
-
-- 外部存在事务
-
-- 使用方式
-
-- REQUIRED（默认）
-
-- 开启新的事务
-
-- 融合到外部事务中
-
-- @Transactional(propagation = Propagation.REQUIRED)
-
-- 适用增删改查
-
-- SUPPORTS
-
-- 不开启新的事务
-
-- 融合到外部事务中
-
-- @Transactional(propagation = Propagation.SUPPORTS)
-
-- 适用查询
-
-- REQUIRES_NEW
-
-- 开启新的事务
-
-- 不用外部事务，创建新的事务
-
-- @Transactional(propagation = Propagation.REQUIRES_NEW)
-
-- 适用内部事务和外部事务不存在业务关联情况，如日志
-
-- NOT_SUPPORTED
-
-- 不开启新的事务
-
-- 不用外部事务
-
-- @Transactional(propagation = Propagation.NOT_SUPPORTED)
-
-- 不常用
-
-- NEVER
-
-- 不开启新的事务
-
-- 抛出异常
-
-- @Transactional(propagation = Propagation.NEVER )
-
-- 不常用
-
-- MANDATORY
-
-- 抛出异常
-
-- 融合到外部事务中
-
-- @Transactional(propagation = Propagation.MANDATORY)
-
-- 不常用
-
-- NESTED
-
-- 开启新的事务
-
-- 融合到外部事务中,SavePoint机制，外层影响内层， 内层不会影响外层
-
-- @Transactional(propagation = Propagation.NESTED)
-
-- 不常用
+| 事务传播行为类型 | 外部不存在事务 | 外部存在事务 | 使用方式 |
+| --- | --- | --- | --- |
+| REQUIRED（默认） | 开启新的事务 | 融合到外部事务中 | @Transactional(propagation = Propagation.REQUIRED)<br>适用增删改查 |
+| SUPPORTS | 不开启新的事务 | 融合到外部事务中 | @Transactional(propagation = Propagation.SUPPORTS)<br>适用查询 |
+| REQUIRES_NEW | 开启新的事务 | 不用外部事务，创建新的事务 | @Transactional(propagation = Propagation.REQUIRES_NEW)<br>适用内部事务和外部事务不存在业务关联情况，如日志 |
+| NOT_SUPPORTED | 不开启新的事务 | 不用外部事务 | @Transactional(propagation = Propagation.NOT_SUPPORTED)<br>不常用 |
+| NEVER | 不开启新的事务 | 抛出异常 | @Transactional(propagation = Propagation.NEVER )<br>不常用 |
+| MANDATORY | 抛出异常 | 融合到外部事务中 | @Transactional(propagation = Propagation.MANDATORY)<br>不常用 |
+| NESTED | 开启新的事务 | 融合到外部事务中,SavePoint机制，外层影响内层， 内层不会影响外层 | @Transactional(propagation = Propagation.NESTED)<br>不常用 |
 
 ## 59.说一下 spring 的事务隔离？
 
@@ -150,27 +82,11 @@ Spring支持两种类型的事务管理：
 
 1.脏读
 
-- 事务1 begin
-
-- 事务2 begin
-
-- update t_user
-
-- set balance=800
-
-- where id=1;
-
-- #balance=800
-
-- select * from t_user where id=1
-
-- commit;
-
-- #balance=800
-
-- rollback; #回滚
-
-- #balance=1000
+| 事务1 begin | 事务2 begin |
+| --- | --- |
+|  | update t_user<br>set balance=800<br>where id=1;<br>#balance=800 |
+| select * from t_user where id=1<br>commit;<br>#balance=800 |  |
+|  | rollback; #回滚<br>#balance=1000 |
 
 1. 一个事务，读取了另一个事务中没有提交的数据，会在本事务中产生的数据不一致的问题
 
@@ -182,29 +98,12 @@ Spring支持两种类型的事务管理：
 
 2.不可重复度
 
-- 事务1 begin
-
-- 事务2 begin
-
-- select * from t_user where id=1
-
-- #balance=1000
-
-- update t_user
-
-- set balance=800
-
-- where id=1;
-
-- commit;
-
-- #balance=800
-
-- select * from t_user where id=1
-
-- #balance=800
-
-- commit;
+| 事务1 begin | 事务2 begin |
+| --- | --- |
+| select * from t_user where id=1<br>#balance=1000 |  |
+|  | update t_user<br>set balance=800<br>where id=1;<br>commit;<br>#balance=800 |
+| select * from t_user where id=1<br>#balance=800 |  |
+| commit; |  |
 
 一个事务中，多次读取相同的数据， 但是读取的结果不一样， 会在本事务中产生数据不一致的问题。
 
@@ -216,37 +115,12 @@ Spring支持两种类型的事务管理：
 
 3.幻影读
 
-- 事务1 begin
-
-- 事务2 begin
-
-- select sum(balance) from t_user where id=1
-
-- #balance=3000
-
-- INSERT INTO t_user
-
-- VALUES
-
-- (
-
-- '4',
-
-- '赵六',
-
-- '123456784',
-
-- '1000'
-
-- );
-
-- commit;
-
-- select sum(balance) from t_user where id=1
-
-- #balance=4000
-
-- commit;
+| 事务1 begin | 事务2 begin |
+| --- | --- |
+| select sum(balance) from t_user where id=1<br>#balance=3000 |  |
+|  | INSERT INTO t_user<br>VALUES<br>(<br>'4',<br>'赵六',<br>'123456784',<br>'1000'<br>);<br>commit; |
+| select sum(balance) from t_user where id=1<br>#balance=4000 |  |
+| commit; |  |
 
 一个事务中，多次对数据进行整表数据读取（统计），但是结果不一样， 会在本事务中产生数据不一致的问题。
 
@@ -262,7 +136,7 @@ Spring支持两种类型的事务管理：
 
 对于后者, 需要锁表
 
-![笔记图片 24](../assets/images/note-024.png)
+![笔记图片 24：59.说一下 spring 的事务隔离？](../assets/images/note-024.png)
 
 ```
 并发安全：SERIALIZABLE>REPEATABLE_READ>READ_COMMITTED运行效率：READ_COMMITTED>REPEATABLE_READ>SERIALIZABLE
@@ -284,9 +158,9 @@ Spring支持两种类型的事务管理：
 
 原理：
 
-1.解析切面 ——> bean的创建前第一个bean的后置处理器进行解析advisor(pointcut(通过@Transacational解析的切点) ， advise) (这个advisor 是通过@EnableTransactionManagement注册了一个配置类，该配置类就配置了adivsor)
+1.解析切面 ——&gt; bean的创建前第一个bean的后置处理器进行解析advisor(pointcut(通过@Transacational解析的切点) ， advise) (这个advisor 是通过@EnableTransactionManagement注册了一个配置类，该配置类就配置了adivsor)
 
-2.创建动态代理——> bean的初始化后调用bean的后置处理器进行创建动态代理(有接口使用jdk，没接口使用cglib)， 创建动态代理之前会先根据advisor中pointCut 匹配@Transacational( 方法里面是不是有、类上面是不是有、接口或父类上面是不是有 ) ， 匹配到就创建动态代理。
+2.创建动态代理——&gt; bean的初始化后调用bean的后置处理器进行创建动态代理(有接口使用jdk，没接口使用cglib)， 创建动态代理之前会先根据advisor中pointCut 匹配@Transacational( 方法里面是不是有、类上面是不是有、接口或父类上面是不是有 ) ， 匹配到就创建动态代理。
 
 3.调用： 动态代理
 
@@ -306,7 +180,7 @@ catch{
 
 7.执行完当前方法后，如果没有出现异常就直接提交事务
 
-![笔记图片 25](../assets/images/note-025.png)
+![笔记图片 25：60.Spring事务实现基本原理](../assets/images/note-025.png)
 
 ## 61. Spring事务传播行为实现原理：
 

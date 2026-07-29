@@ -65,11 +65,11 @@ if(f!=null){ f.eat();
 
 在面向对象设计的软件系统中，底层的实现都是由N个对象组成的，所有的对象通过彼此的合作，最终实现系统的业务逻辑。
 
-![笔记图片 1](../assets/images/note-001.png)
+![笔记图片 1：5.什么是Spring的依赖注入(DI)？IOC和DI的区别是什么](../assets/images/note-001.png)
 
 有一个对象出了问题，就可能会影响到整个流程的正常运转。现在，伴随着工业级应用的规模越来越庞大，对象之间的依赖关系也越来越复杂，经常会出现对象之间的多重依赖性关系，因此，架构师和设计师对于系统的分析和设计，将面临更大的挑战。对象之间耦合度过高的系统，必然会出现牵一发而动全身的情形。
 
-![笔记图片 2](../assets/images/note-002.png)
+![笔记图片 2：5.什么是Spring的依赖注入(DI)？IOC和DI的区别是什么](../assets/images/note-002.png)
 
 大家看到了吧，由于引进了中间位置的“第三方”，也就是IOC容器，对象和对象之间没有了耦合关系， 它起到了一种类似“粘合剂”的作用，把系统中的所有对象粘合在一起发挥作用，如果没有这个“粘合剂”，对象与对象之间会彼此失去联系，这就是有人把IOC容器比喻成“粘合剂”的由来。
 
@@ -95,7 +95,7 @@ if(f!=null){ f.eat();
 
 - BeanFactory它也是容器 Spring容器（管理着Bean的生命周期）
 
-![笔记图片 3](../assets/images/note-003.jpg)
+![笔记图片 3：7.BeanFactory的作用](../assets/images/note-003.jpg)
 
 ## 8. BeanDefinition的作用
 
@@ -121,11 +121,11 @@ ApplicationContext 可以称之为 “高级容器”。因为他比 BeanFactory
 
 ApplicationContext接口作为BeanFactory的派生，除了提供BeanFactory所具有的功能外，还提供了更完整的框架功能：
 
-![笔记图片 4](../assets/images/note-004.png)
+![笔记图片 4：9. BeanFactory 和 ApplicationContext有什么区别？](../assets/images/note-004.png)
 
 官方：
 
-![笔记图片 5](../assets/images/note-005.png)
+![笔记图片 5：9. BeanFactory 和 ApplicationContext有什么区别？](../assets/images/note-005.png)
 
 10.BeanFactory 和FactoryBean有什么区别？
 
@@ -137,13 +137,13 @@ FactoryBean是一个bean，但是它是一个特殊的bean，所以也是由Bean
 
 不过FactoryBean不是一个普通的Bean，它会表现出工厂模式的样子,是一个能产生或者修饰对象生成的工厂Bean，
 
-里面的getObject()就是用来获取FactoryBean产生的对象。所以在BeanFactory中使用“&”来得到FactoryBean本身，
+里面的getObject()就是用来获取FactoryBean产生的对象。所以在BeanFactory中使用“&amp;”来得到FactoryBean本身，
 
 用来区分通过容器获取FactoryBean产生的对象还是获取FactoryBean本身。
 
 ## 11. IOC容器的加载过程：
 
-从概念态--->定义态的过程
+从概念态---&gt;定义态的过程
 
 1、实例化一个ApplicationContext的对象；
 
@@ -201,7 +201,7 @@ abstract等等；
 
 16、put到单例池——bean完成——存在spring容器当中
 
-![笔记图片 6](../assets/images/note-006.png)
+![笔记图片 6：11. IOC容器的加载过程：](../assets/images/note-006.png)
 
 ## 12.你知道Spring的哪些扩展点，在什么时候调用？
 
@@ -223,7 +223,7 @@ Spring中非常非常多的扩展接口，当然你也不需要全部回答，�
 
 - 创建所有单例bean
 
-![笔记图片 7](../assets/images/note-007.png)
+![笔记图片 7：12.你知道Spring的哪些扩展点，在什么时候调用？](../assets/images/note-007.png)
 
 初始化阶段:
 
